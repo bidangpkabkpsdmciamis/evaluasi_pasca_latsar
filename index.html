@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluasi Pasca Pelatihan Dasar CPNS</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #e8e2fc 0%, #d2c9f5 40%, #b9adf0 80%, #a594e8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 24px;
+            padding: 16px;
+            backdrop-filter: blur(2px);
+        }
+
+        .container {
+            max-width: 880px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 40px;
+            box-shadow: 0 28px 56px -12px rgba(48, 30, 100, 0.35), 0 8px 24px -6px rgba(48, 30, 100, 0.15);
+            padding: 36px 40px;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        h2 {
+            color: #1e164a;
+            font-weight: 650;
+            font-size: 1.8rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2c1f6e, #5f42b5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-left: 6px solid #6a4bcf;
+            padding-left: 18px;
+            margin-top: 0;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2 small {
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: rgba(106, 75, 207, 0.14);
+            padding: 4px 18px;
+            border-radius: 40px;
+            color: #3d2d7a;
+            -webkit-text-fill-color: #3d2d7a;
+            margin-left: auto;
+            border: 1px solid rgba(106, 75, 207, 0.15);
+        }
+
+        .step {
+            display: none;
+            animation: fadeSlide 0.35s cubic-bezier(0.15, 0.85, 0.35, 1);
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0.4; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-weight: 500;
+            color: #1e164a;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.92rem;
+            letter-spacing: -0.01em;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cdc2ea;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            transition: 0.25s;
+            color: #1b1642;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #6a4bcf;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(106, 75, 207, 0.18);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .row {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .row>* {
+            flex: 1 1 180px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(106, 75, 207, 0.12);
+            padding-top: 24px;
+        }
+
+        .btn {
+            padding: 10px 30px;
+            border-radius: 60px;
+            font-weight: 500;
+            border: none;
+            background: #f0eefa;
+            color: #1f1a4a;
+            cursor: pointer;
+            transition: 0.18s;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.01em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #6a4bcf, #5239b0);
+            color: white;
+            box-shadow: 0 6px 16px -4px rgba(106, 75, 207, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(145deg, #5c3fc2, #432e9a);
+            transform: scale(0.97);
+            box-shadow: 0 8px 20px -4px rgba(106, 75, 207, 0.45);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid #c6bde4;
+            color: #2f286a;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #8f7ad6;
+        }
+
+        .btn-success {
+            background: linear-gradient(145deg, #3d7a5a, #2c5f44);
+            color: white;
+            box-shadow: 0 6px 16px -4px rgba(61, 122, 90, 0.3);
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(145deg, #336a4d, #224f38);
+            transform: scale(0.97);
+        }
+
+        .btn-danger {
+            background: linear-gradient(145deg, #c45a66, #a9424e);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            filter: grayscale(0.25);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 26px;
+            padding: 20px 24px;
+            margin: 18px 0;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 16px rgba(106, 75, 207, 0.06);
+        }
+
+        .grid-score {
+            display: grid;
+            grid-template-columns: 1fr 48px 48px 48px 48px;
+            gap: 6px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin: 8px 0;
+            box-shadow: 0 1px 6px rgba(58, 45, 113, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .grid-score .pernyataan {
+            font-weight: 500;
+            color: #1e164a;
+            font-size: 0.92rem;
+        }
+
+        .grid-score label {
+            display: flex;
+            justify-content: center;
+            font-weight: 400;
+            color: #2f286a;
+            cursor: pointer;
+            font-size: 0.9rem;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .grid-score input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #6a4bcf;
+            margin: 0;
+        }
+
+        .petunjuk {
+            background: rgba(242, 239, 253, 0.7);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 24px;
+            padding: 18px 24px;
+            border-left: 6px solid #6a4bcf;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .petunjuk h4 {
+            margin-top: 0;
+            color: #1f1a4a;
+            font-weight: 600;
+        }
+
+        .petunjuk ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+            margin-bottom: 0;
+        }
+
+        .petunjuk ul li {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(106, 75, 207, 0.12);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 24px 0 12px;
+            background: rgba(248, 246, 254, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 12px 22px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+            accent-color: #6a4bcf;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 500;
+            color: #1f1a4a;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 10px 16px;
+            border: 1px solid #cdc2ea;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            margin-top: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+        }
+
+        .text-input:focus {
+            border-color: #6a4bcf;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(106, 75, 207, 0.12);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .status-badge {
+            background: #1f1a4a;
+            color: white;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 18px;
+            color: #7a72a6;
+            font-size: 0.85rem;
+        }
+
+        /* loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid rgba(255,255,255,0.25);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-loading {
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 18px;
+                border-radius: 28px;
+            }
+            .grid-score {
+                grid-template-columns: 1fr 36px 36px 36px 36px;
+                gap: 4px;
+                padding: 8px 10px;
+            }
+            .btn-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-group .btn {
+                justify-content: center;
+            }
+            h2 {
+                font-size: 1.4rem;
+                flex-wrap: wrap;
+            }
+            h2 small {
+                margin-left: 0;
+                font-size: 0.7rem;
+            }
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, rgba(106, 75, 207, 0.2), transparent);
+            margin: 22px 0;
+        }
+
+        .choice-grid {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-secondary {
+            background: rgba(216, 207, 245, 0.6);
+            color: #2c2366;
+        }
+        .btn-secondary:hover {
+            background: rgba(197, 184, 236, 0.8);
+        }
+
+        /* tombol pilih peran */
+        .btn-role {
+            padding: 18px 44px;
+            font-size: 1.1rem;
+            min-width: 180px;
+            background: linear-gradient(145deg, #6a4bcf, #4d34a8);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px -4px rgba(106, 75, 207, 0.3);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .btn-role:hover {
+            transform: scale(0.97);
+            box-shadow: 0 10px 28px -4px rgba(106, 75, 207, 0.45);
+        }
+        .btn-role-secondary {
+            background: linear-gradient(145deg, #4b3a8a, #35286a);
+        }
+        .btn-role-secondary:hover {
+            background: linear-gradient(145deg, #3f3077, #2a1f57);
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <h2>
+        Evaluasi Pasca Pelatihan Dasar
+        <small>CPNS</small>
+    </h2>
+
+    <!-- STEP PILIH PERAN -->
+    <div id="step-pilih" class="step active">
+        <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin: 32px 0 12px;">
+            <button class="btn-role" onclick="pilihFormulir('alumni')">
+                Alumni
+            </button>
+            <button class="btn-role btn-role-secondary" onclick="pilihFormulir('atasan')">
+                Atasan Alumni
+            </button>
+        </div>
+        <div class="petunjuk" style="border-left-color: #7d62d9;">
+            <p style="margin: 6px 0 0;">Pilih peran Anda untuk mengisi formulir evaluasi pasca pelatihan.</p>
+        </div>
+    </div>
+
+    <!-- STEP IDENTITAS -->
+    <div id="step-identitas" class="step">
+        <div id="form-identitas"></div>
+        <div class="btn-group">
+            <button class="btn btn-outline" onclick="batal()">Batalkan</button>
+            <button class="btn btn-primary" onclick="lanjutKePetunjuk()">Selanjutnya</button>
+        </div>
+    </div>
+
+    <!-- STEP PETUNJUK -->
+    <div id="step-petunjuk" class="step">
+        <div class="petunjuk">
+            <h4>Petunjuk Pengisian</h4>
+            <p style="margin-top: 2px;">Berilah tanda atau tuliskan jawaban sesuai kondisi nyata. Skor penilaian:</p>
+            <ul>
+                <li>1 — Tidak Sesuai</li>
+                <li>2 — Kurang Sesuai</li>
+                <li>3 — Sesuai</li>
+                <li>4 — Sangat Sesuai</li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-outline" onclick="kembaliKeIdentitas()">Kembali</button>
+            <button class="btn btn-success" onclick="mulaiPengisian()">Mulai Mengisi</button>
+        </div>
+    </div>
+
+    <!-- STEP PENGISIAN INDIKATOR -->
+    <div id="step-pengisian" class="step">
+        <div id="indikator-container"></div>
+        <div class="btn-group">
+            <button class="btn btn-outline" id="btn-kembali-indikator" onclick="kembaliIndikator()">Kembali</button>
+            <button class="btn btn-primary" id="btn-selanjutnya" onclick="selanjutnyaIndikator()">Selanjutnya</button>
+        </div>
+    </div>
+
+    <!-- STEP KONFIRMASI -->
+    <div id="step-konfirmasi" class="step">
+        <div style="background: rgba(243, 240, 253, 0.7); backdrop-filter: blur(6px); border-radius: 26px; padding: 22px 26px; margin: 12px 0 20px; border: 1px solid rgba(255,255,255,0.3);">
+            <h4 style="margin: 0 0 6px; color: #1f1a4a;">Tinjau Kembali Jawaban</h4>
+            <p style="margin: 0; color: #3d3578;">Pastikan semua pernyataan telah terisi dengan benar.</p>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="setuju" onchange="toggleKirim()">
+            <label for="setuju">Saya menyatakan bahwa semua jawaban telah sesuai dan siap dikirim.</label>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-outline" onclick="kembaliKePengisian()">Kembali</button>
+            <button class="btn btn-success" id="btn-kirim" disabled onclick="kirimData()">Kirim Evaluasi</button>
+        </div>
+    </div>
+
+    <!-- STEP TERIMA KASIH -->
+    <div id="step-terimakasih" class="step">
+        <div style="text-align: center; padding: 44px 10px 28px;">
+            <div style="font-size: 3.4rem; margin-bottom: 8px; background: linear-gradient(145deg, #6a4bcf, #9b85e0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✓</div>
+            <h3 style="color: #1e164a; font-weight: 650;">Terima Kasih</h3>
+            <p style="font-size: 1.1rem; color: #3d3578;">Formulir penilaian pasca pelatihan dasar telah berhasil disimpan.</p>
+            <div style="margin-top: 24px; background: rgba(240, 236, 252, 0.7); backdrop-filter: blur(4px); padding: 8px 24px; border-radius: 60px; display: inline-block; color: #2c2366; border: 1px solid rgba(255,255,255,0.3);">Data tersimpan</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ====================== KONFIGURASI ======================
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxB1ixxr7ItVX2NwryAZsK3wCque29sMiG7Cm-ScXKU8WWL2ZIGQ6jkevsbqV31WWHB/exec';
+    const SHEET_ID = '1DKUe896wXlG23xee17DNm6Y8GoQfjBayjCLsTgjNS3E';
+
+    // ====================== STATE ======================
+    const FORM = { jenis: null, data: {}, indikatorIndex: 0, jawaban: {} };
+    let isSubmitting = false;
+
+    // ====================== STRUKTUR INDIKATOR ======================
+    const INDIKATOR = [
+        { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Bela Negara', items: [
+            'Mampu berkorban untuk kepentingan organisasi',
+            'Mampu berpikir kritis dalam pengembangan organisasi',
+            'Semakin disiplin dalam menjalankan tugas jabatan sebagai PNS'
+        ]},
+        { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Nilai-Nilai Dasar PNS', items: [
+            'Memiliki komitmen memberikan pelayanan prima demi kepuasan masyarakat',
+            'Bertanggung jawab atas tugas yang diberikan',
+            'Terus belajar dan mengembangkan kapasitas diri dan orang lain',
+            'Menghargai setiap orang apapun latar belakangnya',
+            'Mengutamakan kepentingan organisasi di atas kepentingan individu',
+            'Terus berinovasi dan mengembangkan kreativitas dalam menghadapi perubahan',
+            'Membangun kerjasama baik di internal maupun eksternal organisasi'
+        ]},
+        { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Kedudukan dan Peran PNS', items: [
+            'Lebih mampu menjalankan hak dan kewajiban sebagai PNS',
+            'Lebih bijak menggunakan media sosial',
+            'Mampu mengoptimalkan penggunaan sarana dan prasarana digital'
+        ]},
+        { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Pelaksanaan Tugas dan Jabatan', items: [
+            'Lebih responsif terhadap tuntutan layanan',
+            'Pekerjaan dapat diselesaikan dengan baik',
+            'Lebih mudah melakukan transfer pengetahuan',
+            'Menciptakan lingkungan kerja yang kondusif',
+            'Rela melakukan pekerjaan di luar jam kerja',
+            'Lebih mudah memberikan solusi terkait permasalahan yang ada',
+            'Lebih mudah mendapatkan kepercayaan dari orang lain'
+        ]},
+        { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Keberlanjutan Aktualisasi', items: [
+            'Terdapat keberlanjutan Aktualisasi (Ya/Tidak)',
+            'Jika Ya, Mohon Jelaskan hasil dan manfaatnya',
+            'Jika Tidak, Jelaskan kendala/hambatan dalam melanjutkan aktualisasi'
+        ]},
+        { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Peningkatan Kinerja Organisasi dan Layanan', items: [
+            'Organisasi lebih tertib administrasi',
+            'Pelayanan organisasi lebih meningkat',
+            'Pimpinan merasa lebih terbantu dalam pekerjaan',
+            'Membantu mengembangkan jejaring'
+        ]}
+    ];
+
+    // ====================== FUNGSI UI ======================
+    function showStep(id) {
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function pilihFormulir(jenis) {
+        FORM.jenis = jenis;
+        document.getElementById('form-identitas').innerHTML = '';
+        if (jenis === 'alumni') buildIdentitasAlumni();
+        else buildIdentitasAtasan();
+        showStep('step-identitas');
+    }
+
+    function batal() { showStep('step-pilih'); }
+
+    function lanjutKePetunjuk() {
+        if (FORM.jenis === 'alumni') {
+            const angkatan = document.getElementById('angkatan')?.value;
+            const ndh = document.getElementById('ndh')?.value;
+            const nama = document.getElementById('nama')?.value;
+            if (!angkatan || !ndh || !nama) { alert('Pilih Angkatan dan NDH terlebih dahulu.'); return; }
+            const hp = document.getElementById('hp')?.value;
+            const email = document.getElementById('email')?.value;
+            const instansi = document.getElementById('instansi')?.value;
+            if (!hp || !email || !instansi) { alert('Lengkapi identitas (No HP, Email, Instansi).'); return; }
+            FORM.data = { 
+                angkatan, ndh, nama, hp, email, instansi,
+                jabatanPel: document.getElementById('jabatanPel')?.value || '',
+                jabatanSkrg: document.getElementById('jabatanSkrg')?.value || '',
+                waktu: document.getElementById('waktu')?.value || '',
+                metode: 'Blended Learning'
+            };
+        } else {
+            const namaAtasan = document.getElementById('namaAtasan')?.value;
+            const hpAtasan = document.getElementById('hpAtasan')?.value;
+            const instansiAtasan = document.getElementById('instansiAtasan')?.value;
+            const angkatanAlumni = document.getElementById('angkatanAtasan')?.value;
+            const ndhAlumni = document.getElementById('ndhAlumni')?.value;
+            const namaAlumni = document.getElementById('namaAlumni')?.value;
+            if (!namaAtasan || !hpAtasan || !instansiAtasan || !angkatanAlumni || !ndhAlumni || !namaAlumni) { 
+                alert('Lengkapi semua identitas.'); 
+                return; 
+            }
+            FORM.data = { 
+                namaAtasan, hpAtasan, instansiAtasan,
+                angkatanAlumni, ndhAlumni, namaAlumni 
+            };
+        }
+        showStep('step-petunjuk');
+    }
+
+    function kembaliKeIdentitas() { showStep('step-identitas'); }
+
+    function mulaiPengisian() {
+        FORM.indikatorIndex = 0;
+        FORM.jawaban = {};
+        renderIndikator(0);
+        showStep('step-pengisian');
+    }
+
+    function renderIndikator(idx) {
+        const container = document.getElementById('indikator-container');
+        if (idx >= INDIKATOR.length) {
+            showStep('step-konfirmasi');
+            return;
+        }
+        const g = INDIKATOR[idx];
+        let html = `<div class="card"><h4 style="margin-top:0; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">${g.judul} <span style="font-weight:400; font-size:0.9rem; color:#4d3a9e;">— ${g.sub}</span></h4>`;
+        g.items.forEach((item, i) => {
+            const kode = g.kode + String(idx+1).padStart(1,'0') + String(i+1).padStart(1,'0');
+            const val = FORM.jawaban[kode] || '';
+            
+            if (item.includes('Ya/Tidak')) {
+                html += `<div class="grid-score"><span class="pernyataan">${item}</span>
+                    <label><input type="radio" name="${kode}" value="Ya" ${val==='Ya'?'checked':''} onchange="simpanJawaban('${kode}',this.value)"> Ya</label>
+                    <label><input type="radio" name="${kode}" value="Tidak" ${val==='Tidak'?'checked':''} onchange="simpanJawaban('${kode}',this.value)"> Tidak</label>
+                    <span></span><span></span></div>`;
+            } else if (item.toLowerCase().includes('jelaskan') || item.toLowerCase().includes('kendala') || item.toLowerCase().includes('manfaatnya')) {
+                html += `<div style="margin:6px 0"><label style="font-weight:500;">${item}</label>
+                    <input type="text" class="text-input" id="txt_${kode}" value="${val}" onchange="simpanJawaban('${kode}',this.value)" placeholder="Tulis jawaban..."></div>`;
+            } else {
+                html += `<div class="grid-score"><span class="pernyataan">${item}</span>
+                    ${[1,2,3,4].map(n => `<label><input type="radio" name="${kode}" value="${n}" ${val==n?'checked':''} onchange="simpanJawaban('${kode}','${n}')"> ${n}</label>`).join('')}
+                </div>`;
+            }
+        });
+        html += '</div>';
+        container.innerHTML = html;
+        document.getElementById('btn-selanjutnya').innerText = (idx === INDIKATOR.length-1) ? 'Selesai' : 'Selanjutnya';
+        document.getElementById('btn-kembali-indikator').style.display = (idx === 0) ? 'none' : 'inline-block';
+    }
+
+    function simpanJawaban(kode, val) {
+        FORM.jawaban[kode] = val;
+    }
+
+    function selanjutnyaIndikator() {
+        const g = INDIKATOR[FORM.indikatorIndex];
+        const items = g.items;
+        let allFilled = true;
+        items.forEach((item, i) => {
+            const kode = g.kode + String(FORM.indikatorIndex+1).padStart(1,'0') + String(i+1).padStart(1,'0');
+            const val = FORM.jawaban[kode];
+            if (!val || val === '') allFilled = false;
+        });
+        if (!allFilled) { alert('Semua pernyataan wajib diisi.'); return; }
+
+        if (FORM.indikatorIndex === INDIKATOR.length-1) {
+            showStep('step-konfirmasi');
+        } else {
+            FORM.indikatorIndex++;
+            renderIndikator(FORM.indikatorIndex);
+        }
+    }
+
+    function kembaliIndikator() {
+        if (FORM.indikatorIndex > 0) {
+            FORM.indikatorIndex--;
+            renderIndikator(FORM.indikatorIndex);
+        }
+    }
+
+    function kembaliKePengisian() {
+        renderIndikator(INDIKATOR.length-1);
+        showStep('step-pengisian');
+    }
+
+    function toggleKirim() {
+        document.getElementById('btn-kirim').disabled = !document.getElementById('setuju').checked;
+    }
+
+    // ====================== KIRIM DENGAN LOADING ======================
+    function kirimData() {
+        if (isSubmitting) return;
+        if (!document.getElementById('setuju').checked) { alert('Centang persetujuan terlebih dahulu.'); return; }
+
+        const btnKirim = document.getElementById('btn-kirim');
+        // simpan teks asli
+        const originalText = btnKirim.innerHTML;
+        // ubah ke loading
+        btnKirim.innerHTML = '<span class="spinner"></span> Mengirim...';
+        btnKirim.disabled = true;
+        btnKirim.classList.add('btn-loading');
+        isSubmitting = true;
+
+        const payload = {
+            jenis: FORM.jenis,
+            dataIdentitas: FORM.data,
+            jawaban: FORM.jawaban
+        };
+
+        fetch(GAS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            // sukses
+            showStep('step-terimakasih');
+        })
+        .catch(() => {
+            alert('Gagal menyimpan data. Silakan coba lagi.');
+            // kembalikan tombol
+            btnKirim.innerHTML = originalText;
+            btnKirim.disabled = false;
+            btnKirim.classList.remove('btn-loading');
+            isSubmitting = false;
+        })
+        .finally(() => {
+            // jika terjadi error, sudah di catch. jika sukses, tombol tidak perlu dikembalikan
+            // tapi jika sukses, step berubah, tidak masalah
+            if (document.getElementById('step-terimakasih').classList.contains('active')) {
+                // sudah di step terima kasih, tidak perlu kembalikan tombol
+            } else {
+                // jika gagal, tombol sudah dikembalikan di catch
+            }
+            isSubmitting = false;
+        });
+    }
+
+    // ====================== BUILD IDENTITAS ALUMNI ======================
+    function buildIdentitasAlumni() {
+        const div = document.getElementById('form-identitas');
+        div.innerHTML = `
+            <h3 style="margin-top:0; color:#1f1a4a;">Identitas Alumni</h3>
+            <div class="row">
+                <div class="form-group"><label>Angkatan</label><select id="angkatan" onchange="pilihAngkatan()"><option value="">Pilih</option></select></div>
+                <div class="form-group"><label>NDH</label><select id="ndh" onchange="pilihNdh()"><option value="">Pilih</option></select></div>
+                <div class="form-group"><label>Nama</label><input id="nama" readonly style="background:rgba(243,240,252,0.5);"></div>
+            </div>
+            <div class="row">
+                <div class="form-group"><label>No HP Responden</label><input id="hp" placeholder="0812xxxx"></div>
+                <div class="form-group"><label>Alamat Email</label><input id="email" placeholder="email@domain.com"></div>
+            </div>
+            <div class="row">
+                <div class="form-group"><label>Nama Instansi</label><input id="instansi" placeholder="Nama Instansi"></div>
+                <div class="form-group"><label>Jabatan Saat Pelatihan</label><input id="jabatanPel" placeholder="Jabatan saat pelatihan"></div>
+            </div>
+            <div class="row">
+                <div class="form-group"><label>Jabatan Saat Ini</label><input id="jabatanSkrg" placeholder="Jabatan saat ini"></div>
+                <div class="form-group"><label>Waktu Pelatihan</label><input id="waktu" placeholder="Contoh: 2024"></div>
+            </div>
+            <div class="form-group"><label>Metode Pelaksanaan</label><input id="metode" value="Blended Learning" readonly style="background:rgba(240,236,252,0.5);"></div>
+        `;
+        fetch(`${GAS_URL}?action=getAngkatan&sheetId=${SHEET_ID}`)
+        .then(r => r.json()).then(data => {
+            const sel = document.getElementById('angkatan');
+            if (data && data.length) {
+                data.forEach(a => { const opt = document.createElement('option'); opt.value = a; opt.text = a; sel.appendChild(opt); });
+            }
+        }).catch(() => { console.log('Gagal ambil angkatan'); });
+        
+        window.pilihAngkatan = function() {
+            const angkatan = document.getElementById('angkatan').value;
+            fetch(`${GAS_URL}?action=getNdh&sheetId=${SHEET_ID}&angkatan=${angkatan}`)
+            .then(r => r.json()).then(data => {
+                const sel = document.getElementById('ndh'); 
+                sel.innerHTML = '<option value="">Pilih</option>';
+                if (data && data.length) {
+                    data.forEach(n => { const opt = document.createElement('option'); opt.value = n; opt.text = n; sel.appendChild(opt); });
+                }
+                document.getElementById('nama').value = '';
+            }).catch(() => {});
+        };
+        
+        window.pilihNdh = function() {
+            const angkatan = document.getElementById('angkatan').value;
+            const ndh = document.getElementById('ndh').value;
+            if (!angkatan || !ndh) return;
+            fetch(`${GAS_URL}?action=getNama&sheetId=${SHEET_ID}&angkatan=${angkatan}&ndh=${ndh}`)
+            .then(r => r.json()).then(data => { 
+                document.getElementById('nama').value = data || ''; 
+            }).catch(() => {});
+        };
+    }
+
+    // ====================== BUILD IDENTITAS ATASAN ======================
+    function buildIdentitasAtasan() {
+        const div = document.getElementById('form-identitas');
+        div.innerHTML = `
+            <h3 style="margin-top:0; color:#1f1a4a;">Identitas Atasan Alumni</h3>
+            <div class="row">
+                <div class="form-group"><label>Nama Responden (Atasan)</label><input id="namaAtasan" placeholder="Nama lengkap atasan"></div>
+                <div class="form-group"><label>No HP Responden</label><input id="hpAtasan" placeholder="0812xxxx"></div>
+            </div>
+            <div class="form-group"><label>Nama Instansi</label><input id="instansiAtasan" placeholder="Nama instansi"></div>
+            <hr>
+            <h4 style="color:#1f1a4a;">Identitas Alumni yang Dinilai</h4>
+            <div class="row">
+                <div class="form-group"><label>Angkatan</label><select id="angkatanAtasan" onchange="pilihAngkatanAtasan()"><option value="">Pilih</option></select></div>
+                <div class="form-group"><label>NDH</label><select id="ndhAlumni" onchange="pilihNdhAtasan()"><option value="">Pilih</option></select></div>
+                <div class="form-group"><label>Nama Alumni</label><input id="namaAlumni" readonly style="background:rgba(243,240,252,0.5);"></div>
+            </div>
+        `;
+        fetch(`${GAS_URL}?action=getAngkatan&sheetId=${SHEET_ID}`)
+        .then(r => r.json()).then(data => {
+            const sel = document.getElementById('angkatanAtasan');
+            if (data && data.length) {
+                data.forEach(a => { const opt = document.createElement('option'); opt.value = a; opt.text = a; sel.appendChild(opt); });
+            }
+        }).catch(() => {});
+        
+        window.pilihAngkatanAtasan = function() {
+            const angkatan = document.getElementById('angkatanAtasan').value;
+            fetch(`${GAS_URL}?action=getNdh&sheetId=${SHEET_ID}&angkatan=${angkatan}`)
+            .then(r => r.json()).then(data => {
+                const sel = document.getElementById('ndhAlumni'); 
+                sel.innerHTML = '<option value="">Pilih</option>';
+                if (data && data.length) {
+                    data.forEach(n => { const opt = document.createElement('option'); opt.value = n; opt.text = n; sel.appendChild(opt); });
+                }
+                document.getElementById('namaAlumni').value = '';
+            }).catch(() => {});
+        };
+        
+        window.pilihNdhAtasan = function() {
+            const angkatan = document.getElementById('angkatanAtasan').value;
+            const ndh = document.getElementById('ndhAlumni').value;
+            if (!angkatan || !ndh) return;
+            fetch(`${GAS_URL}?action=getNama&sheetId=${SHEET_ID}&angkatan=${angkatan}&ndh=${ndh}`)
+            .then(r => r.json()).then(data => { 
+                document.getElementById('namaAlumni').value = data || ''; 
+            }).catch(() => {});
+        };
+    }
+</script>
+</body>
+</html>
