@@ -3,60 +3,733 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluasi Pasca Pelatihan Dasar CPNS</title>
+    <title>Evaluasi Pasca Pelatihan Dasar CPNS Kabupaten Ciamis</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #4a3a8a;
+            --primary-light: #6a4bcf;
+            --primary-dark: #2c1f6e;
+            --accent: #6a4bcf;
+            --gradient-primary: linear-gradient(135deg, #6a4bcf, #4a3a8a);
+            --dark-blue: #1a143a;
+            --surface-color: #ffffff;
+            --background-color: #f5f0ff;
+            --default-color: #1a143a;
+            --contrast-color: #ffffff;
+            --transition: all 0.3s ease;
+            --shadow-lg: 0 20px 40px rgba(26, 20, 58, 0.15);
+        }
+
+        /* ===== RESET & BASE ===== */
         * {
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background: radial-gradient(circle at 10% 20%, #e8e2fc 0%, #d2c9f5 40%, #b9adf0 80%, #a594e8 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 24px;
-            padding: 16px;
-            backdrop-filter: blur(2px);
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #f5f0ff;
+            color: var(--default-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
         .container {
-            max-width: 880px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 40px;
-            box-shadow: 0 28px 56px -12px rgba(48, 30, 100, 0.35), 0 8px 24px -6px rgba(48, 30, 100, 0.15);
-            padding: 36px 40px;
-            transition: all 0.25s ease;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        h2 {
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(26, 20, 58, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: var(--transition);
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-brand img {
+            height: 40px;
+        }
+
+        .header-brand h1 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-brand span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links .btn-evaluasi {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links .btn-evaluasi:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(106, 75, 207, 0.3);
+        }
+
+        .mobile-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .hero-container {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 0 60px 0;
+        }
+
+        .hero-container .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-container .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 20, 58, 0.85) 0%, rgba(26, 20, 58, 0.6) 100%);
+            z-index: 2;
+        }
+
+        .hero-container .container {
+            z-index: 3;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .hero-content {
+            padding-right: 20px;
+        }
+
+        .hero-content .welcome-badge {
+            display: inline-block;
+            background: rgba(106, 75, 207, 0.25);
+            color: #b8a8f0;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            border: 1px solid rgba(106, 75, 207, 0.2);
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-content .cta-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero-primary {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(106, 75, 207, 0.35);
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(106, 75, 207, 0.5);
+        }
+
+        .btn-hero-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* ===== STATS CARD ===== */
+        .stats-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 28px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stats-card .stats-header {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .stats-card .stats-header h3 {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .stats-card .stats-header .decoration-line {
+            height: 3px;
+            width: 60px;
+            background: var(--gradient-primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .stat-content h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .stat-content p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 2px 0 0 0;
+        }
+
+        /* ===== CHART SECTION ===== */
+        .chart-section {
+            margin-top: 40px;
+            padding: 30px 0;
+        }
+
+        .chart-section .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .chart-box {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .chart-box h4 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .chart-box canvas {
+            max-height: 200px;
+            max-width: 100%;
+        }
+
+        /* ===== EVENT TICKER ===== */
+        .event-ticker {
+            background: var(--gradient-primary);
+            padding: 18px 0;
+            color: white;
+        }
+
+        .event-ticker .ticker-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ticker-item .date {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .ticker-item .title {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 60px 20px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 100% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
+        }
+
+        .footer-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-col h4::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .footer-logo img {
+            height: 45px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-footer-accent {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-footer-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(106, 75, 207, 0.3);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-contact .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .footer-contact .contact-item i {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-top: 4px;
+            width: 20px;
+        }
+
+        .footer-contact .contact-item p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .partner-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 30px 0;
+        }
+
+        .partner-logo {
+            height: 35px;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .partner-logo:hover {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .copyright a {
+            color: var(--accent);
+        }
+
+        .copyright a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===== MODAL / POPUP ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 28px;
+            padding: 40px 45px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-box .modal-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .modal-box h3 {
+            color: var(--default-color);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .modal-box p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .modal-box .modal-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-box .modal-btn {
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            min-width: 140px;
+        }
+
+        .modal-box .modal-btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 6px 20px rgba(106, 75, 207, 0.3);
+        }
+
+        .modal-box .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(106, 75, 207, 0.4);
+        }
+
+        .modal-box .modal-btn-secondary {
+            background: #f0ecf9;
+            color: var(--default-color);
+        }
+
+        .modal-box .modal-btn-secondary:hover {
+            background: #e0d8f0;
+            transform: translateY(-2px);
+        }
+
+        .modal-box .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 1.3rem;
+            color: #999;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-box .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-box {
+            position: relative;
+        }
+
+        /* ===== FORM CONTAINER (existing) ===== */
+        .form-container {
+            max-width: 880px;
+            margin: 100px auto 40px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            box-shadow: 0 28px 56px -12px rgba(48, 30, 100, 0.35);
+            padding: 36px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            display: none;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-container h2 {
             color: #1e164a;
             font-weight: 650;
-            font-size: 1.8rem;
-            letter-spacing: -0.02em;
+            font-size: 1.6rem;
             background: linear-gradient(135deg, #2c1f6e, #5f42b5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             border-left: 6px solid #6a4bcf;
             padding-left: 18px;
-            margin-top: 0;
             margin-bottom: 1.8rem;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        h2 small {
-            font-size: 0.85rem;
+        .form-container h2 small {
+            font-size: 0.8rem;
             font-weight: 500;
             background: rgba(106, 75, 207, 0.14);
             padding: 4px 18px;
@@ -81,6 +754,17 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ===== FORM STYLES (existing) ===== */
         .form-group {
             margin-bottom: 18px;
         }
@@ -94,8 +778,7 @@
             letter-spacing: -0.01em;
         }
 
-        input,
-        select {
+        input, select {
             width: 100%;
             padding: 12px 16px;
             border: 1px solid #cdc2ea;
@@ -107,8 +790,7 @@
             color: #1b1642;
         }
 
-        input:focus,
-        select:focus {
+        input:focus, select:focus {
             border-color: #6a4bcf;
             outline: none;
             box-shadow: 0 0 0 4px rgba(106, 75, 207, 0.18);
@@ -187,11 +869,6 @@
             transform: scale(0.97);
         }
 
-        .btn-danger {
-            background: linear-gradient(145deg, #c45a66, #a9424e);
-            color: white;
-        }
-
         .btn:disabled {
             opacity: 0.5;
             pointer-events: none;
@@ -201,7 +878,6 @@
         .card {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
             border-radius: 26px;
             padding: 20px 24px;
             margin: 18px 0;
@@ -251,7 +927,6 @@
         .petunjuk {
             background: rgba(242, 239, 253, 0.7);
             backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
             border-radius: 24px;
             padding: 18px 24px;
             border-left: 6px solid #6a4bcf;
@@ -325,23 +1000,6 @@
             background: rgba(255, 255, 255, 0.85);
         }
 
-        .status-badge {
-            background: #1f1a4a;
-            color: white;
-            padding: 4px 18px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .footer-link {
-            text-align: center;
-            margin-top: 18px;
-            color: #7a72a6;
-            font-size: 0.85rem;
-        }
-
-        /* loading spinner */
         .spinner {
             display: inline-block;
             width: 20px;
@@ -362,33 +1020,6 @@
             opacity: 0.85;
         }
 
-        @media (max-width: 640px) {
-            .container {
-                padding: 24px 18px;
-                border-radius: 28px;
-            }
-            .grid-score {
-                grid-template-columns: 1fr 36px 36px 36px 36px;
-                gap: 4px;
-                padding: 8px 10px;
-            }
-            .btn-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .btn-group .btn {
-                justify-content: center;
-            }
-            h2 {
-                font-size: 1.4rem;
-                flex-wrap: wrap;
-            }
-            h2 small {
-                margin-left: 0;
-                font-size: 0.7rem;
-            }
-        }
-
         hr {
             border: 0;
             height: 1px;
@@ -396,22 +1027,6 @@
             margin: 22px 0;
         }
 
-        .choice-grid {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .btn-secondary {
-            background: rgba(216, 207, 245, 0.6);
-            color: #2c2366;
-        }
-        .btn-secondary:hover {
-            background: rgba(197, 184, 236, 0.8);
-        }
-
-        /* tombol pilih peran */
         .btn-role {
             padding: 18px 44px;
             font-size: 1.1rem;
@@ -425,37 +1040,369 @@
             transition: 0.2s;
             cursor: pointer;
         }
+
         .btn-role:hover {
             transform: scale(0.97);
             box-shadow: 0 10px 28px -4px rgba(106, 75, 207, 0.45);
         }
+
         .btn-role-secondary {
             background: linear-gradient(145deg, #4b3a8a, #35286a);
         }
+
         .btn-role-secondary:hover {
             background: linear-gradient(145deg, #3f3077, #2a1f57);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-content .cta-buttons {
+                justify-content: center;
+            }
+
+            .chart-section .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .event-ticker .ticker-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(26, 20, 58, 0.98);
+                flex-direction: column;
+                padding: 30px 20px;
+                gap: 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .stat-item {
+                padding: 10px 12px;
+            }
+
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .stat-content h4 {
+                font-size: 1.1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .partner-logos {
+                gap: 20px;
+            }
+
+            .partner-logo {
+                height: 28px;
+            }
+
+            .modal-box {
+                padding: 30px 24px;
+            }
+
+            .modal-box .modal-buttons {
+                flex-direction: column;
+            }
+
+            .modal-box .modal-btn {
+                width: 100%;
+            }
+
+            .form-container {
+                padding: 24px 18px;
+                border-radius: 28px;
+                margin: 80px 16px 30px;
+            }
+
+            .form-container h2 {
+                font-size: 1.3rem;
+                flex-wrap: wrap;
+            }
+
+            .form-container h2 small {
+                margin-left: 0;
+                font-size: 0.7rem;
+            }
+
+            .grid-score {
+                grid-template-columns: 1fr 36px 36px 36px 36px;
+                gap: 4px;
+                padding: 8px 10px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-group .btn {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding-top: 70px;
+                min-height: auto;
+            }
+
+            .hero-container {
+                min-height: auto;
+                padding: 20px 0 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-content .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-content .cta-buttons .btn-hero-primary,
+            .hero-content .cta-buttons .btn-hero-secondary {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-card {
+                padding: 20px;
+            }
+
+            .header-brand h1 {
+                font-size: 0.9rem;
+            }
+
+            .header-brand img {
+                height: 32px;
+            }
+
+            .footer-logo img {
+                height: 36px;
+            }
+
+            .copyright {
+                font-size: 0.75rem;
+            }
+
+            .ticker-item {
+                flex-wrap: wrap;
+            }
+
+            .ticker-item .title {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container" id="app">
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+    <div class="container">
+        <div class="header-brand">
+            <img src="https://i.ibb.co.com/JWw8qHmM/logo-bkpsdm.png" alt="BKPSDM Logo">
+            <h1>BKPSDM <span>Ciamis</span></h1>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero">Beranda</a></li>
+            <li><a href="#form-section">Evaluasi</a></li>
+            <li><a href="#footer">Kontak</a></li>
+            <li><a href="#" class="btn-evaluasi" onclick="openModal()">Siap Mengisi Evaluasi</a></li>
+        </ul>
+        <div class="mobile-toggle" onclick="toggleNav()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</header>
+
+<!-- ===== HERO SECTION ===== -->
+<section id="hero" class="hero">
+    <div class="hero-container">
+        <video autoplay muted loop playsinline class="video-background">
+            <source src="https://bkpsdm.ciamiskab.go.id/assetss/teasernew.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="welcome-badge">
+                        <i class="fas fa-graduation-cap"></i> Evaluasi Pasca Pelatihan Dasar CPNS 2025
+                    </div>
+                    <h1>Evaluasi <span>Pasca Pelatihan</span> Dasar CPNS Kabupaten Ciamis</h1>
+                    <p>Berikan penilaian Anda mengenai dampak pelatihan terhadap peningkatan kompetensi dan kinerja ASN di lingkungan Pemerintah Kabupaten Ciamis.</p>
+                    <div class="cta-buttons">
+                        <button class="btn-hero-primary" onclick="openModal()">
+                            <i class="fas fa-clipboard-check"></i> Siap Mengisi Evaluasi
+                        </button>
+                        <a href="#chart-section" class="btn-hero-secondary">
+                            <i class="fas fa-chart-line"></i> Lihat Statistik
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="stats-card">
+                        <div class="stats-header">
+                            <h3>Statistik Evaluasi</h3>
+                            <div class="decoration-line"></div>
+                        </div>
+                        <div class="stats-grid" id="statsGrid">
+                            <div class="stat-item">
+                                <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+                                <div class="stat-content">
+                                    <h4 id="totalAlumni">0</h4>
+                                    <p>Total Alumni Mengisi</p>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon"><i class="fas fa-user-tie"></i></div>
+                                <div class="stat-content">
+                                    <h4 id="totalAtasan">0</h4>
+                                    <p>Total Atasan Mengisi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Section inside hero -->
+                    <div class="chart-section" id="chart-section">
+                        <div class="chart-grid">
+                            <div class="chart-box">
+                                <h4><i class="fas fa-user-graduate"></i> Alumni per Angkatan</h4>
+                                <canvas id="chartAlumni"></canvas>
+                            </div>
+                            <div class="chart-box">
+                                <h4><i class="fas fa-user-tie"></i> Atasan Alumni per Angkatan</h4>
+                                <canvas id="chartAtasan"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Ticker -->
+    <div class="event-ticker">
+        <div class="container">
+            <div class="ticker-grid">
+                <div class="ticker-item">
+                    <span class="date">2025</span>
+                    <span class="title">Latsar CPNS Gelombang 1 Angkatan 1 & 2</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="date">2025</span>
+                    <span class="title">Latsar CPNS Gelombang 2 Angkatan 3 & 4</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="date">2025</span>
+                    <span class="title">Latsar CPNS Gelombang 3 Angkatan 5 & 6</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FORM CONTAINER ===== -->
+<div class="form-container" id="formSection">
     <h2>
         Evaluasi Pasca Pelatihan Dasar CPNS Kabupaten Ciamis
         <small>PNS</small>
     </h2>
 
-    <!-- STEP PILIH PERAN -->
+    <!-- STEP PILIH PERAN (hidden, will show via modal) -->
     <div id="step-pilih" class="step active">
         <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin: 32px 0 12px;">
             <button class="btn-role" onclick="pilihFormulir('alumni')">
-                Alumni
+                <i class="fas fa-user-graduate"></i> Alumni
             </button>
             <button class="btn-role btn-role-secondary" onclick="pilihFormulir('atasan')">
-                Atasan Alumni
+                <i class="fas fa-user-tie"></i> Atasan Alumni
             </button>
         </div>
         <div class="petunjuk" style="border-left-color: #7d62d9;">
-            <p style="margin: 6px 0 0;">Pilih peran Anda untuk mengisi formulir evaluasi pasca Pelatihan Dasar CPNS Kabupaten Ciamis.</p>
+            <p style="margin: 6px 0 0;">Pilih peran Anda untuk mengisi formulir evaluasi pasca Pelatihan Dasar CPNS Kabupaten Ciamis Tahun 2025.</p>
         </div>
     </div>
 
@@ -518,18 +1465,141 @@
             <h3 style="color: #1e164a; font-weight: 650;">Terima Kasih</h3>
             <p style="font-size: 1.1rem; color: #3d3578;">Formulir penilaian pasca pelatihan dasar telah berhasil disimpan.</p>
             <div style="margin-top: 24px; background: rgba(240, 236, 252, 0.7); backdrop-filter: blur(4px); padding: 8px 24px; border-radius: 60px; display: inline-block; color: #2c2366; border: 1px solid rgba(255,255,255,0.3);">Data tersimpan</div>
+            <div style="margin-top: 20px;">
+                <button class="btn btn-primary" onclick="resetForm()">Kembali ke Beranda</button>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <div class="modal-icon"><i class="fas fa-file-signature"></i></div>
+        <h3>Pilih Peran Anda</h3>
+        <p>Silakan pilih peran Anda untuk mengisi formulir evaluasi pasca Pelatihan Dasar CPNS.</p>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-primary" onclick="selectRole('alumni')">
+                <i class="fas fa-user-graduate"></i> Alumni
+            </button>
+            <button class="modal-btn modal-btn-secondary" onclick="selectRole('atasan')">
+                <i class="fas fa-user-tie"></i> Atasan Alumni
+            </button>
+        </div>
+        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" id="footer">
+    <div class="container footer-container">
+        <div class="footer-content">
+            <div class="footer-col footer-logo">
+                <img src="https://i.ibb.co.com/JWw8qHmM/logo-bkpsdm.png" alt="BKPSDM Logo">
+                <p>
+                    Formulir Pasca Latsar CPNS Tahun 2025 merupakan platform evaluasi digital untuk mengukur dampak pelatihan dasar terhadap peningkatan kompetensi dan profesionalisme ASN Kabupaten Ciamis.
+                </p>
+                <a href="#" class="btn-footer-accent" onclick="openModal()">
+                    <i class="fas fa-clipboard-check"></i> Isi Evaluasi
+                </a>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h4>Link Cepat</h4>
+                <ul>
+                    <li><a href="#hero"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#form-section"><i class="fas fa-file-alt"></i> Evaluasi</a></li>
+                    <li><a href="#chart-section"><i class="fas fa-chart-bar"></i> Statistik</a></li>
+                    <li><a href="#footer"><i class="fas fa-envelope"></i> Kontak</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h4>Layanan</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-comments"></i> Konsultasi & Saran</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i> Informasi Terkini</a></li>
+                    <li><a href="#"><i class="fas fa-download"></i> Unduhan</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Bantuan</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h4>Kontak Kami</h4>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Jl. Sadananya No. 27, Kelurahan Maleber, Kecamatan Ciamis, Kabupaten Ciamis</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>pka@ciamiskab.go.id<br>bkpsdm@ciamiskab.go.id</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>(0265) 771234<br>Senin - Jumat, 08:00 - 16:00 WIB</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="partner-logos">
+            <img src="https://i.ibb.co.com/tMnbFSr5/Lambang-Kabupaten-Ciamis.png" alt="Lambang Kabupaten Ciamis" class="partner-logo">
+            <img src="https://i.ibb.co.com/JWw8qHmM/logo-bkpsdm.png" alt="Logo BKPSDM" class="partner-logo">
+            <img src="https://i.ibb.co.com/6JvSKyNf/Logo-Ber-AKHLAK-svg.png" alt="Logo BerAKHLAK" class="partner-logo">
+            <img src="https://i.ibb.co.com/99NKJGNg/bangga.png" alt="Bangga Melayani Bangsa" class="partner-logo">
+        </div>
+
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>&copy; 2025 <a href="#">PKA BKPSDM Kabupaten Ciamis</a>. All Rights Reserved.</p>
+                <p>Formulir Pasca Latsar CPNS 2025 | Versi 2.0</p>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== SCROLL TO TOP ===== -->
+<div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
 <script>
     // ====================== KONFIGURASI ======================
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxB1ixxr7ItVX2NwryAZsK3wCque29sMiG7Cm-ScXKU8WWL2ZIGQ6jkevsbqV31WWHB/exec';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwAQoAXCJsvEYAxpSGtd_SDQ143w1l4pi8JPtGj1GisTFhpwXzaGbkv56jGyU47_mR3/exec';
     const SHEET_ID = '1DKUe896wXlG23xee17DNm6Y8GoQfjBayjCLsTgjNS3E';
 
     // ====================== STATE ======================
     const FORM = { jenis: null, data: {}, indikatorIndex: 0, jawaban: {} };
     let isSubmitting = false;
+    let chartAlumniInstance = null;
+    let chartAtasanInstance = null;
+
+    // ====================== NAV TOGGLE ======================
+    function toggleNav() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    // ====================== MODAL ======================
+    function openModal() {
+        document.getElementById('modalOverlay').classList.add('active');
+        // Scroll ke form jika sudah ada
+        document.getElementById('formSection').classList.add('active');
+        document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+    }
+
+    function selectRole(jenis) {
+        closeModal();
+        pilihFormulir(jenis);
+    }
 
     // ====================== STRUKTUR INDIKATOR ======================
     const INDIKATOR = [
@@ -576,7 +1646,7 @@
 
     // ====================== FUNGSI UI ======================
     function showStep(id) {
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('#formSection .step').forEach(el => el.classList.remove('active'));
         document.getElementById(id).classList.add('active');
     }
 
@@ -586,6 +1656,7 @@
         if (jenis === 'alumni') buildIdentitasAlumni();
         else buildIdentitasAtasan();
         showStep('step-identitas');
+        document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function batal() { showStep('step-pilih'); }
@@ -706,15 +1777,23 @@
         document.getElementById('btn-kirim').disabled = !document.getElementById('setuju').checked;
     }
 
-    // ====================== KIRIM DENGAN LOADING ======================
+    function resetForm() {
+        FORM.jenis = null;
+        FORM.data = {};
+        FORM.jawaban = {};
+        FORM.indikatorIndex = 0;
+        document.getElementById('formSection').classList.remove('active');
+        showStep('step-pilih');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ====================== KIRIM DATA ======================
     function kirimData() {
         if (isSubmitting) return;
         if (!document.getElementById('setuju').checked) { alert('Centang persetujuan terlebih dahulu.'); return; }
 
         const btnKirim = document.getElementById('btn-kirim');
-        // simpan teks asli
         const originalText = btnKirim.innerHTML;
-        // ubah ke loading
         btnKirim.innerHTML = '<span class="spinner"></span> Mengirim...';
         btnKirim.disabled = true;
         btnKirim.classList.add('btn-loading');
@@ -733,26 +1812,117 @@
             body: JSON.stringify(payload)
         })
         .then(() => {
-            // sukses
             showStep('step-terimakasih');
+            loadStats(); // Refresh stats
         })
         .catch(() => {
             alert('Gagal menyimpan data. Silakan coba lagi.');
-            // kembalikan tombol
             btnKirim.innerHTML = originalText;
             btnKirim.disabled = false;
             btnKirim.classList.remove('btn-loading');
             isSubmitting = false;
         })
         .finally(() => {
-            // jika terjadi error, sudah di catch. jika sukses, tombol tidak perlu dikembalikan
-            // tapi jika sukses, step berubah, tidak masalah
-            if (document.getElementById('step-terimakasih').classList.contains('active')) {
-                // sudah di step terima kasih, tidak perlu kembalikan tombol
-            } else {
-                // jika gagal, tombol sudah dikembalikan di catch
-            }
             isSubmitting = false;
+        });
+    }
+
+    // ====================== LOAD STATS & CHARTS ======================
+    async function loadStats() {
+        try {
+            const response = await fetch(`${GAS_URL}?action=getStats&sheetId=${SHEET_ID}`);
+            const data = await response.json();
+            
+            if (data) {
+                document.getElementById('totalAlumni').textContent = data.totalAlumni || 0;
+                document.getElementById('totalAtasan').textContent = data.totalAtasan || 0;
+                
+                // Update charts
+                updateCharts(data);
+            }
+        } catch (error) {
+            console.error('Error loading stats:', error);
+        }
+    }
+
+    function updateCharts(data) {
+        const alumniData = data.alumniPerAngkatan || {};
+        const atasanData = data.atasanPerAngkatan || {};
+        
+        const angkatanLabels = Object.keys(alumniData);
+        const alumniValues = Object.values(alumniData);
+        const atasanValues = angkatanLabels.map(a => atasanData[a] || 0);
+
+        // Alumni Chart
+        const ctxAlumni = document.getElementById('chartAlumni').getContext('2d');
+        if (chartAlumniInstance) chartAlumniInstance.destroy();
+        chartAlumniInstance = new Chart(ctxAlumni, {
+            type: 'bar',
+            data: {
+                labels: angkatanLabels,
+                datasets: [{
+                    label: 'Jumlah Alumni',
+                    data: alumniValues,
+                    backgroundColor: 'rgba(106, 75, 207, 0.7)',
+                    borderColor: '#6a4bcf',
+                    borderWidth: 2,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    x: {
+                        ticks: { color: 'rgba(255,255,255,0.7)' },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Atasan Chart
+        const ctxAtasan = document.getElementById('chartAtasan').getContext('2d');
+        if (chartAtasanInstance) chartAtasanInstance.destroy();
+        chartAtasanInstance = new Chart(ctxAtasan, {
+            type: 'bar',
+            data: {
+                labels: angkatanLabels,
+                datasets: [{
+                    label: 'Jumlah Atasan',
+                    data: atasanValues,
+                    backgroundColor: 'rgba(52, 211, 153, 0.7)',
+                    borderColor: '#34d399',
+                    borderWidth: 2,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    x: {
+                        ticks: { color: 'rgba(255,255,255,0.7)' },
+                        grid: { display: false }
+                    }
+                }
+            }
         });
     }
 
@@ -861,6 +2031,28 @@
             }).catch(() => {});
         };
     }
+
+    // ====================== SCROLL TO TOP ======================
+    window.addEventListener('scroll', function() {
+        const scrollBtn = document.getElementById('scrollTop');
+        if (window.scrollY > 300) {
+            scrollBtn.style.display = 'flex';
+        } else {
+            scrollBtn.style.display = 'none';
+        }
+    });
+
+    document.getElementById('scrollTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ====================== INIT ======================
+    document.addEventListener('DOMContentLoaded', function() {
+        loadStats();
+        // Set interval refresh setiap 60 detik
+        setInterval(loadStats, 60000);
+    });
 </script>
+
 </body>
 </html>
