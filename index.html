@@ -126,6 +126,21 @@
             box-shadow: 0 8px 20px rgba(106, 75, 207, 0.3);
         }
 
+        .nav-links .btn-pengiriman {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .nav-links .btn-pengiriman:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
         .mobile-toggle {
             display: none;
             color: white;
@@ -258,6 +273,25 @@
         .btn-hero-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
+        }
+
+        .btn-hero-pengiriman {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid rgba(106, 75, 207, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-hero-pengiriman:hover {
+            background: rgba(106, 75, 207, 0.3);
+            transform: translateY(-3px);
+            border-color: rgba(106, 75, 207, 0.8);
+            box-shadow: 0 8px 25px rgba(106, 75, 207, 0.25);
         }
 
         /* ===== STATS CARD ===== */
@@ -1054,6 +1088,32 @@
             background: linear-gradient(145deg, #3f3077, #2a1f57);
         }
 
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(106, 75, 207, 0.35);
+            transition: var(--transition);
+            z-index: 999;
+            border: none;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(106, 75, 207, 0.5);
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1200px) {
             .hero-grid {
@@ -1213,6 +1273,20 @@
             .btn-group .btn {
                 justify-content: center;
             }
+
+            .hero-content .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-content .cta-buttons .btn-hero-primary,
+            .hero-content .cta-buttons .btn-hero-secondary,
+            .hero-content .cta-buttons .btn-hero-pengiriman {
+                width: 100%;
+                max-width: 320px;
+                text-align: center;
+                justify-content: center;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1228,18 +1302,6 @@
 
             .hero-content h1 {
                 font-size: 1.6rem;
-            }
-
-            .hero-content .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .hero-content .cta-buttons .btn-hero-primary,
-            .hero-content .cta-buttons .btn-hero-secondary {
-                width: 100%;
-                max-width: 280px;
-                text-align: center;
             }
 
             .stats-grid {
@@ -1273,6 +1335,14 @@
             .ticker-item .title {
                 font-size: 0.8rem;
             }
+
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                bottom: 20px;
+                right: 20px;
+            }
         }
     </style>
 </head>
@@ -1289,7 +1359,8 @@
             <li><a href="#hero">Beranda</a></li>
             <li><a href="#form-section">Evaluasi</a></li>
             <li><a href="#footer">Kontak</a></li>
-            <li><a href="#" class="btn-evaluasi" onclick="openModal()">Siap Mengisi Evaluasi</a></li>
+            <li><a href="#" class="btn-evaluasi" onclick="openModal()">LATSAR BKPSDM</a></li>
+            <li><a href="latsarpengiriman.html" class="btn-pengiriman"><i class="fas fa-paper-plane"></i> LATSAR Pola Pengiriman</a></li>
         </ul>
         <div class="mobile-toggle" onclick="toggleNav()">
             <i class="fas fa-bars"></i>
@@ -1314,8 +1385,11 @@
                     <p>Berikan penilaian Anda mengenai dampak pelatihan terhadap peningkatan kompetensi dan kinerja ASN di lingkungan Pemerintah Kabupaten Ciamis.</p>
                     <div class="cta-buttons">
                         <button class="btn-hero-primary" onclick="openModal()">
-                            <i class="fas fa-clipboard-check"></i> Siap Mengisi Evaluasi
+                            <i class="fas fa-clipboard-check"></i> LATSAR BKPSDM
                         </button>
+                        <a href="latsarpengiriman.html" class="btn-hero-pengiriman">
+                            <i class="fas fa-paper-plane"></i> LATSAR POLA PENGIRIMAN
+                        </a>
                         <a href="#chart-section" class="btn-hero-secondary">
                             <i class="fas fa-chart-line"></i> Lihat Statistik
                         </a>
@@ -1564,9 +1638,9 @@
 </footer>
 
 <!-- ===== SCROLL TO TOP ===== -->
-<div class="scroll-top" id="scrollTop">
+<button class="scroll-top" id="scrollTop">
     <i class="fas fa-arrow-up"></i>
-</div>
+</button>
 
 <script>
     // ====================== KONFIGURASI ======================
@@ -1587,7 +1661,6 @@
     // ====================== MODAL ======================
     function openModal() {
         document.getElementById('modalOverlay').classList.add('active');
-        // Scroll ke form jika sudah ada
         document.getElementById('formSection').classList.add('active');
         document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -1813,7 +1886,7 @@
         })
         .then(() => {
             showStep('step-terimakasih');
-            loadStats(); // Refresh stats
+            loadStats();
         })
         .catch(() => {
             alert('Gagal menyimpan data. Silakan coba lagi.');
@@ -1836,8 +1909,6 @@
             if (data) {
                 document.getElementById('totalAlumni').textContent = data.totalAlumni || 0;
                 document.getElementById('totalAtasan').textContent = data.totalAtasan || 0;
-                
-                // Update charts
                 updateCharts(data);
             }
         } catch (error) {
@@ -1853,7 +1924,6 @@
         const alumniValues = Object.values(alumniData);
         const atasanValues = angkatanLabels.map(a => atasanData[a] || 0);
 
-        // Alumni Chart
         const ctxAlumni = document.getElementById('chartAlumni').getContext('2d');
         if (chartAlumniInstance) chartAlumniInstance.destroy();
         chartAlumniInstance = new Chart(ctxAlumni, {
@@ -1872,24 +1942,14 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' },
-                        grid: { color: 'rgba(255,255,255,0.05)' }
-                    },
-                    x: {
-                        ticks: { color: 'rgba(255,255,255,0.7)' },
-                        grid: { display: false }
-                    }
+                    y: { beginAtZero: true, ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { display: false } }
                 }
             }
         });
 
-        // Atasan Chart
         const ctxAtasan = document.getElementById('chartAtasan').getContext('2d');
         if (chartAtasanInstance) chartAtasanInstance.destroy();
         chartAtasanInstance = new Chart(ctxAtasan, {
@@ -1908,19 +1968,10 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' },
-                        grid: { color: 'rgba(255,255,255,0.05)' }
-                    },
-                    x: {
-                        ticks: { color: 'rgba(255,255,255,0.7)' },
-                        grid: { display: false }
-                    }
+                    y: { beginAtZero: true, ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { display: false } }
                 }
             }
         });
@@ -2049,7 +2100,6 @@
     // ====================== INIT ======================
     document.addEventListener('DOMContentLoaded', function() {
         loadStats();
-        // Set interval refresh setiap 60 detik
         setInterval(loadStats, 60000);
     });
 </script>
