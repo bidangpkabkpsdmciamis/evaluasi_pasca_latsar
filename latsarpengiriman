@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluasi Pasca Pelatihan Dasar CPNS Kabupaten Ciamis</title>
+    <title>Evaluasi Pasca Pelatihan Dasar CPNS Kabupaten Ciamis - Pola Pengiriman</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="shortcut icon" type="image/png" href="favicon.png">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* ===== CSS VARIABLES ===== */
         :root {
@@ -40,6 +38,12 @@
             background: #f5f0ff;
             color: var(--default-color);
             line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 30px 20px;
         }
 
         a {
@@ -48,674 +52,101 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 880px;
+            width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
         /* ===== HEADER ===== */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(26, 20, 58, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            transition: var(--transition);
-        }
-
-        .header .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header-brand img {
-            height: 40px;
-        }
-
-        .header-brand h1 {
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .header-brand span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.7);
-            transition: var(--transition);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: white;
-        }
-
-        .nav-links .btn-evaluasi {
+        .page-header {
             background: var(--gradient-primary);
-            color: white;
-            padding: 8px 22px;
             border-radius: 30px;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-links .btn-evaluasi:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(106, 75, 207, 0.3);
-        }
-
-        .mobile-toggle {
-            display: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            padding: 0;
-            overflow: hidden;
-            position: relative;
-            min-height: 100vh;
-            padding-top: 80px;
-        }
-
-        .hero-container {
-            position: relative;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            padding: 40px 0 60px 0;
-        }
-
-        .hero-container .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        .hero-container .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(26, 20, 58, 0.85) 0%, rgba(26, 20, 58, 0.6) 100%);
-            z-index: 2;
-        }
-
-        .hero-container .container {
-            z-index: 3;
-            position: relative;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        .hero-content {
-            padding-right: 20px;
-        }
-
-        .hero-content .welcome-badge {
-            display: inline-block;
-            background: rgba(106, 75, 207, 0.25);
-            color: #b8a8f0;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 16px;
-            border: 1px solid rgba(106, 75, 207, 0.2);
-        }
-
-        .hero-content h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero-content h1 span {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-content p {
-            font-size: 1.15rem;
-            color: rgba(255, 255, 255, 0.8);
+            padding: 30px 35px;
             margin-bottom: 30px;
-            max-width: 500px;
-        }
-
-        .hero-content .cta-buttons {
+            color: white;
+            box-shadow: 0 15px 30px rgba(106, 75, 207, 0.25);
             display: flex;
-            gap: 15px;
+            align-items: center;
+            gap: 25px;
             flex-wrap: wrap;
         }
 
-        .btn-hero-primary {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 14px 35px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 8px 25px rgba(106, 75, 207, 0.35);
-        }
-
-        .btn-hero-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(106, 75, 207, 0.5);
-        }
-
-        .btn-hero-secondary {
-            background: rgba(255, 255, 255, 0.12);
-            color: white;
-            padding: 14px 35px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-hero-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-        }
-
-        /* ===== STATS CARD ===== */
-        .stats-card {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 28px 30px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .stats-card .stats-header {
-            text-align: center;
-            margin-bottom: 22px;
-        }
-
-        .stats-card .stats-header h3 {
-            color: white;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .stats-card .stats-header .decoration-line {
-            height: 3px;
-            width: 60px;
-            background: var(--gradient-primary);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .stat-item {
+        .page-header .logo-area {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 16px;
-            border-radius: 12px;
-            transition: var(--transition);
+            gap: 15px;
         }
 
-        .stat-item:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .page-header .logo-area img {
+            height: 55px;
         }
 
-        .stat-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gradient-primary);
-            color: white;
-            font-size: 1.2rem;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .stat-content h4 {
-            font-size: 1.3rem;
+        .page-header .header-text h1 {
+            font-size: 1.4rem;
             font-weight: 700;
-            color: white;
             margin: 0;
             line-height: 1.2;
         }
 
-        .stat-content p {
+        .page-header .header-text p {
+            margin: 4px 0 0;
+            opacity: 0.85;
+            font-size: 0.9rem;
+        }
+
+        .page-header .badge-pola {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 20px;
+            border-radius: 40px;
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin: 2px 0 0 0;
-        }
-
-        /* ===== CHART SECTION ===== */
-        .chart-section {
-            margin-top: 40px;
-            padding: 30px 0;
-        }
-
-        .chart-section .chart-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .chart-box {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .chart-box h4 {
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
             text-align: center;
         }
 
-        .chart-box canvas {
-            max-height: 200px;
-            max-width: 100%;
-        }
-
-        /* ===== EVENT TICKER ===== */
-        .event-ticker {
-            background: var(--gradient-primary);
-            padding: 18px 0;
-            color: white;
-        }
-
-        .event-ticker .ticker-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .ticker-item .date {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .ticker-item .title {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: var(--dark-blue);
-            color: white;
-            padding: 60px 20px 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 100% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
-        }
-
-        .footer-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-col h4 {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: white;
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .footer-col h4::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 35px;
-            height: 3px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-        }
-
-        .footer-logo img {
-            height: 45px;
-            margin-bottom: 16px;
-        }
-
-        .footer-logo p {
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.7;
+        .page-header .badge-pola strong {
+            display: block;
             font-size: 0.9rem;
-            margin-bottom: 20px;
         }
 
-        .btn-footer-accent {
-            display: inline-block;
-            background: var(--gradient-primary);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .btn-footer-accent:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(106, 75, 207, 0.3);
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.6);
-            transition: var(--transition);
-            display: flex;
+        /* ===== BACK BUTTON ===== */
+        .back-link {
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-size: 0.9rem;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .footer-contact .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 16px;
-        }
-
-        .footer-contact .contact-item i {
-            color: var(--accent);
-            font-size: 1rem;
-            margin-top: 4px;
-            width: 20px;
-        }
-
-        .footer-contact .contact-item p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .partner-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            margin: 30px 0;
-        }
-
-        .partner-logo {
-            height: 35px;
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-
-        .partner-logo:hover {
-            opacity: 1;
-            transform: scale(1.08);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .copyright {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.85rem;
-        }
-
-        .copyright a {
-            color: var(--accent);
-        }
-
-        .copyright a:hover {
-            text-decoration: underline;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 12px;
-        }
-
-        .social-link {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.6);
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* ===== MODAL / POPUP ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(6px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-box {
-            background: white;
-            border-radius: 28px;
-            padding: 40px 45px;
-            max-width: 480px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        .modal-box .modal-icon {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .modal-box h3 {
-            color: var(--default-color);
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
-
-        .modal-box p {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-        }
-
-        .modal-box .modal-buttons {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .modal-box .modal-btn {
-            padding: 12px 32px;
-            border-radius: 50px;
+            color: var(--primary);
             font-weight: 600;
-            border: none;
-            cursor: pointer;
+            padding: 12px 24px;
+            background: white;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
             transition: var(--transition);
-            font-size: 0.95rem;
-            min-width: 140px;
+            border: 1px solid rgba(106, 75, 207, 0.1);
         }
 
-        .modal-box .modal-btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: 0 6px 20px rgba(106, 75, 207, 0.3);
+        .back-link:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 8px 20px rgba(106, 75, 207, 0.15);
+            border-color: var(--accent);
         }
 
-        .modal-box .modal-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(106, 75, 207, 0.4);
-        }
-
-        .modal-box .modal-btn-secondary {
-            background: #f0ecf9;
-            color: var(--default-color);
-        }
-
-        .modal-box .modal-btn-secondary:hover {
-            background: #e0d8f0;
-            transform: translateY(-2px);
-        }
-
-        .modal-box .modal-close {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            font-size: 1.3rem;
-            color: #999;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .modal-box .modal-close:hover {
-            color: #333;
-        }
-
-        .modal-box {
-            position: relative;
-        }
-
-        /* ===== FORM CONTAINER (existing) ===== */
+        /* ===== FORM CONTAINER ===== */
         .form-container {
-            max-width: 880px;
-            margin: 100px auto 40px;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
             border-radius: 40px;
             box-shadow: 0 28px 56px -12px rgba(48, 30, 100, 0.35);
             padding: 36px 40px;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            display: none;
-        }
-
-        .form-container.active {
-            display: block;
+            width: 100%;
         }
 
         .form-container h2 {
             color: #1e164a;
             font-weight: 650;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             background: linear-gradient(135deg, #2c1f6e, #5f42b5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -726,10 +157,11 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .form-container h2 small {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
             background: rgba(106, 75, 207, 0.14);
             padding: 4px 18px;
@@ -754,17 +186,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        /* ===== FORM STYLES (existing) ===== */
+        /* ===== FORM STYLES ===== */
         .form-group {
             margin-bottom: 18px;
         }
@@ -795,6 +217,12 @@
             outline: none;
             box-shadow: 0 0 0 4px rgba(106, 75, 207, 0.18);
             background: rgba(255, 255, 255, 0.9);
+        }
+
+        input:disabled {
+            background: rgba(240, 236, 252, 0.5);
+            cursor: not-allowed;
+            opacity: 0.8;
         }
 
         .row {
@@ -873,6 +301,33 @@
             opacity: 0.5;
             pointer-events: none;
             filter: grayscale(0.25);
+        }
+
+        .btn-role {
+            padding: 18px 44px;
+            font-size: 1.1rem;
+            min-width: 180px;
+            background: linear-gradient(145deg, #6a4bcf, #4d34a8);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px -4px rgba(106, 75, 207, 0.3);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-role:hover {
+            transform: scale(0.97);
+            box-shadow: 0 10px 28px -4px rgba(106, 75, 207, 0.45);
+        }
+
+        .btn-role-secondary {
+            background: linear-gradient(145deg, #4b3a8a, #35286a);
+        }
+
+        .btn-role-secondary:hover {
+            background: linear-gradient(145deg, #3f3077, #2a1f57);
         }
 
         .card {
@@ -1027,182 +482,87 @@
             margin: 22px 0;
         }
 
-        .btn-role {
-            padding: 18px 44px;
-            font-size: 1.1rem;
-            min-width: 180px;
-            background: linear-gradient(145deg, #6a4bcf, #4d34a8);
-            color: white;
-            border: none;
-            border-radius: 60px;
+        /* ===== IDENTITAS INFO ===== */
+        .identitas-info {
+            background: rgba(240, 236, 252, 0.5);
+            border-radius: 20px;
+            padding: 20px 24px;
+            border: 1px solid rgba(106, 75, 207, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .identitas-info .info-item {
+            display: flex;
+            gap: 12px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(106, 75, 207, 0.05);
+        }
+
+        .identitas-info .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .identitas-info .info-label {
             font-weight: 600;
-            box-shadow: 0 8px 20px -4px rgba(106, 75, 207, 0.3);
-            transition: 0.2s;
-            cursor: pointer;
+            color: #2c1f6e;
+            min-width: 120px;
+            font-size: 0.9rem;
         }
 
-        .btn-role:hover {
-            transform: scale(0.97);
-            box-shadow: 0 10px 28px -4px rgba(106, 75, 207, 0.45);
-        }
-
-        .btn-role-secondary {
-            background: linear-gradient(145deg, #4b3a8a, #35286a);
-        }
-
-        .btn-role-secondary:hover {
-            background: linear-gradient(145deg, #3f3077, #2a1f57);
+        .identitas-info .info-value {
+            color: #1e164a;
+            font-weight: 500;
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 1200px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .hero-content {
-                padding-right: 0;
-                text-align: center;
-            }
-
-            .hero-content p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-content .cta-buttons {
-                justify-content: center;
-            }
-
-            .chart-section .chart-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .hero-content h1 {
-                font-size: 2.4rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .event-ticker .ticker-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: rgba(26, 20, 58, 0.98);
-                flex-direction: column;
-                padding: 30px 20px;
-                gap: 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            body {
+                padding: 15px 12px;
             }
 
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-toggle {
-                display: block;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .hero-content p {
-                font-size: 1rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-
-            .stat-item {
-                padding: 10px 12px;
-            }
-
-            .stat-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-
-            .stat-content h4 {
-                font-size: 1.1rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .footer-bottom {
+            .page-header {
+                padding: 20px;
+                border-radius: 20px;
                 flex-direction: column;
                 text-align: center;
-                gap: 16px;
             }
 
-            .partner-logos {
-                gap: 20px;
-            }
-
-            .partner-logo {
-                height: 28px;
-            }
-
-            .modal-box {
-                padding: 30px 24px;
-            }
-
-            .modal-box .modal-buttons {
+            .page-header .logo-area {
                 flex-direction: column;
             }
 
-            .modal-box .modal-btn {
+            .page-header .badge-pola {
+                margin-left: 0;
                 width: 100%;
+            }
+
+            .page-header .header-text h1 {
+                font-size: 1.2rem;
             }
 
             .form-container {
                 padding: 24px 18px;
                 border-radius: 28px;
-                margin: 80px 16px 30px;
             }
 
             .form-container h2 {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
                 flex-wrap: wrap;
             }
 
             .form-container h2 small {
                 margin-left: 0;
-                font-size: 0.7rem;
+                font-size: 0.65rem;
             }
 
             .grid-score {
                 grid-template-columns: 1fr 36px 36px 36px 36px;
                 gap: 4px;
                 padding: 8px 10px;
+            }
+
+            .grid-score .pernyataan {
+                font-size: 0.82rem;
             }
 
             .btn-group {
@@ -1213,846 +573,533 @@
             .btn-group .btn {
                 justify-content: center;
             }
-        }
 
-        @media (max-width: 576px) {
-            .hero {
-                padding-top: 70px;
-                min-height: auto;
-            }
-
-            .hero-container {
-                min-height: auto;
-                padding: 20px 0 30px;
-            }
-
-            .hero-content h1 {
-                font-size: 1.6rem;
-            }
-
-            .hero-content .cta-buttons {
+            .identitas-info .info-item {
                 flex-direction: column;
-                align-items: center;
+                gap: 2px;
+                padding: 8px 0;
             }
 
-            .hero-content .cta-buttons .btn-hero-primary,
-            .hero-content .cta-buttons .btn-hero-secondary {
-                width: 100%;
-                max-width: 280px;
-                text-align: center;
+            .identitas-info .info-label {
+                min-width: auto;
+                font-size: 0.8rem;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-card {
-                padding: 20px;
-            }
-
-            .header-brand h1 {
+            .identitas-info .info-value {
                 font-size: 0.9rem;
             }
 
-            .header-brand img {
-                height: 32px;
+            .row {
+                flex-direction: column;
+                gap: 12px;
             }
 
-            .footer-logo img {
-                height: 36px;
+            .row>* {
+                flex: 1 1 auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header .header-text h1 {
+                font-size: 1rem;
             }
 
-            .copyright {
+            .form-container {
+                padding: 18px 14px;
+                border-radius: 24px;
+            }
+
+            .form-container h2 {
+                font-size: 1rem;
+                padding-left: 12px;
+            }
+
+            .card {
+                padding: 14px 16px;
+            }
+
+            .petunjuk {
+                padding: 14px 16px;
+            }
+
+            .checkbox-group {
+                flex-wrap: wrap;
+                padding: 12px 16px;
+                border-radius: 20px;
+            }
+
+            .grid-score {
+                grid-template-columns: 1fr 30px 30px 30px 30px;
+                gap: 2px;
+                padding: 6px 8px;
+                border-radius: 14px;
+            }
+
+            .grid-score label {
                 font-size: 0.75rem;
             }
 
-            .ticker-item {
-                flex-wrap: wrap;
+            .grid-score input[type="radio"] {
+                width: 15px;
+                height: 15px;
             }
 
-            .ticker-item .title {
-                font-size: 0.8rem;
+            .btn-role {
+                padding: 14px 30px;
+                font-size: 1rem;
+                min-width: 140px;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header" id="header">
     <div class="container">
-        <div class="header-brand">
-            <img src="https://i.ibb.co.com/JWw8qHmM/logo-bkpsdm.png" alt="BKPSDM Logo">
-            <h1>BKPSDM <span>Ciamis</span></h1>
-        </div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#hero">Beranda</a></li>
-            <li><a href="#form-section">Evaluasi</a></li>
-            <li><a href="#footer">Kontak</a></li>
-            <li><a href="#" class="btn-evaluasi" onclick="openModal()">Siap Mengisi Evaluasi</a></li>
-        </ul>
-        <div class="mobile-toggle" onclick="toggleNav()">
-            <i class="fas fa-bars"></i>
-        </div>
-    </div>
-</header>
+        <!-- Back Button -->
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        </a>
 
-<!-- ===== HERO SECTION ===== -->
-<section id="hero" class="hero">
-    <div class="hero-container">
-        <video autoplay muted loop playsinline class="video-background">
-            <source src="https://bkpsdm.ciamiskab.go.id/assetss/teasernew.mp4" type="video/mp4">
-        </video>
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="welcome-badge">
-                        <i class="fas fa-graduation-cap"></i> Evaluasi Pasca Pelatihan Dasar CPNS 2025
-                    </div>
-                    <h1>Evaluasi <span>Pasca Pelatihan</span> Dasar CPNS Kabupaten Ciamis</h1>
-                    <p>Berikan penilaian Anda mengenai dampak pelatihan terhadap peningkatan kompetensi dan kinerja ASN di lingkungan Pemerintah Kabupaten Ciamis.</p>
-                    <div class="cta-buttons">
-                        <button class="btn-hero-primary" onclick="openModal()">
-                            <i class="fas fa-clipboard-check"></i> Siap Mengisi Evaluasi
-                        </button>
-                        <a href="#chart-section" class="btn-hero-secondary">
-                            <i class="fas fa-chart-line"></i> Lihat Statistik
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <div class="stats-card">
-                        <div class="stats-header">
-                            <h3>Statistik Evaluasi</h3>
-                            <div class="decoration-line"></div>
-                        </div>
-                        <div class="stats-grid" id="statsGrid">
-                            <div class="stat-item">
-                                <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
-                                <div class="stat-content">
-                                    <h4 id="totalAlumni">0</h4>
-                                    <p>Total Alumni Mengisi</p>
-                                </div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-icon"><i class="fas fa-user-tie"></i></div>
-                                <div class="stat-content">
-                                    <h4 id="totalAtasan">0</h4>
-                                    <p>Total Atasan Mengisi</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Chart Section inside hero -->
-                    <div class="chart-section" id="chart-section">
-                        <div class="chart-grid">
-                            <div class="chart-box">
-                                <h4><i class="fas fa-user-graduate"></i> Alumni per Angkatan</h4>
-                                <canvas id="chartAlumni"></canvas>
-                            </div>
-                            <div class="chart-box">
-                                <h4><i class="fas fa-user-tie"></i> Atasan Alumni per Angkatan</h4>
-                                <canvas id="chartAtasan"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Event Ticker -->
-    <div class="event-ticker">
-        <div class="container">
-            <div class="ticker-grid">
-                <div class="ticker-item">
-                    <span class="date">2025</span>
-                    <span class="title">Latsar CPNS Gelombang 1 Angkatan 1 & 2</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="date">2025</span>
-                    <span class="title">Latsar CPNS Gelombang 2 Angkatan 3 & 4</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="date">2025</span>
-                    <span class="title">Latsar CPNS Gelombang 3 Angkatan 5 & 6</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== FORM CONTAINER ===== -->
-<div class="form-container" id="formSection">
-    <h2>
-        Evaluasi Pasca Pelatihan Dasar CPNS Kabupaten Ciamis
-        <small>PNS</small>
-    </h2>
-
-    <!-- STEP PILIH PERAN (hidden, will show via modal) -->
-    <div id="step-pilih" class="step active">
-        <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin: 32px 0 12px;">
-            <button class="btn-role" onclick="pilihFormulir('alumni')">
-                <i class="fas fa-user-graduate"></i> Alumni
-            </button>
-            <button class="btn-role btn-role-secondary" onclick="pilihFormulir('atasan')">
-                <i class="fas fa-user-tie"></i> Atasan Alumni
-            </button>
-        </div>
-        <div class="petunjuk" style="border-left-color: #7d62d9;">
-            <p style="margin: 6px 0 0;">Pilih peran Anda untuk mengisi formulir evaluasi pasca Pelatihan Dasar CPNS Kabupaten Ciamis Tahun 2025.</p>
-        </div>
-    </div>
-
-    <!-- STEP IDENTITAS -->
-    <div id="step-identitas" class="step">
-        <div id="form-identitas"></div>
-        <div class="btn-group">
-            <button class="btn btn-outline" onclick="batal()">Batalkan</button>
-            <button class="btn btn-primary" onclick="lanjutKePetunjuk()">Selanjutnya</button>
-        </div>
-    </div>
-
-    <!-- STEP PETUNJUK -->
-    <div id="step-petunjuk" class="step">
-        <div class="petunjuk">
-            <h4>Petunjuk Pengisian</h4>
-            <p style="margin-top: 2px;">Berilah tanda atau tuliskan jawaban sesuai kondisi nyata. Skor penilaian:</p>
-            <ul>
-                <li>1 — Tidak Sesuai</li>
-                <li>2 — Kurang Sesuai</li>
-                <li>3 — Sesuai</li>
-                <li>4 — Sangat Sesuai</li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-outline" onclick="kembaliKeIdentitas()">Kembali</button>
-            <button class="btn btn-success" onclick="mulaiPengisian()">Mulai Mengisi</button>
-        </div>
-    </div>
-
-    <!-- STEP PENGISIAN INDIKATOR -->
-    <div id="step-pengisian" class="step">
-        <div id="indikator-container"></div>
-        <div class="btn-group">
-            <button class="btn btn-outline" id="btn-kembali-indikator" onclick="kembaliIndikator()">Kembali</button>
-            <button class="btn btn-primary" id="btn-selanjutnya" onclick="selanjutnyaIndikator()">Selanjutnya</button>
-        </div>
-    </div>
-
-    <!-- STEP KONFIRMASI -->
-    <div id="step-konfirmasi" class="step">
-        <div style="background: rgba(243, 240, 253, 0.7); backdrop-filter: blur(6px); border-radius: 26px; padding: 22px 26px; margin: 12px 0 20px; border: 1px solid rgba(255,255,255,0.3);">
-            <h4 style="margin: 0 0 6px; color: #1f1a4a;">Tinjau Kembali Jawaban</h4>
-            <p style="margin: 0; color: #3d3578;">Pastikan semua pernyataan telah terisi dengan benar.</p>
-        </div>
-        <div class="checkbox-group">
-            <input type="checkbox" id="setuju" onchange="toggleKirim()">
-            <label for="setuju">Saya menyatakan bahwa semua jawaban telah sesuai dan siap dikirim.</label>
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-outline" onclick="kembaliKePengisian()">Kembali</button>
-            <button class="btn btn-success" id="btn-kirim" disabled onclick="kirimData()">Kirim Evaluasi</button>
-        </div>
-    </div>
-
-    <!-- STEP TERIMA KASIH -->
-    <div id="step-terimakasih" class="step">
-        <div style="text-align: center; padding: 44px 10px 28px;">
-            <div style="font-size: 3.4rem; margin-bottom: 8px; background: linear-gradient(145deg, #6a4bcf, #9b85e0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✓</div>
-            <h3 style="color: #1e164a; font-weight: 650;">Terima Kasih</h3>
-            <p style="font-size: 1.1rem; color: #3d3578;">Formulir penilaian pasca pelatihan dasar telah berhasil disimpan.</p>
-            <div style="margin-top: 24px; background: rgba(240, 236, 252, 0.7); backdrop-filter: blur(4px); padding: 8px 24px; border-radius: 60px; display: inline-block; color: #2c2366; border: 1px solid rgba(255,255,255,0.3);">Data tersimpan</div>
-            <div style="margin-top: 20px;">
-                <button class="btn btn-primary" onclick="resetForm()">Kembali ke Beranda</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ===== MODAL ===== -->
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal-box">
-        <div class="modal-icon"><i class="fas fa-file-signature"></i></div>
-        <h3>Pilih Peran Anda</h3>
-        <p>Silakan pilih peran Anda untuk mengisi formulir evaluasi pasca Pelatihan Dasar CPNS.</p>
-        <div class="modal-buttons">
-            <button class="modal-btn modal-btn-primary" onclick="selectRole('alumni')">
-                <i class="fas fa-user-graduate"></i> Alumni
-            </button>
-            <button class="modal-btn modal-btn-secondary" onclick="selectRole('atasan')">
-                <i class="fas fa-user-tie"></i> Atasan Alumni
-            </button>
-        </div>
-        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-    </div>
-</div>
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer" id="footer">
-    <div class="container footer-container">
-        <div class="footer-content">
-            <div class="footer-col footer-logo">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="logo-area">
                 <img src="https://i.ibb.co.com/JWw8qHmM/logo-bkpsdm.png" alt="BKPSDM Logo">
-                <p>
-                    Formulir Pasca Latsar CPNS Tahun 2025 merupakan platform evaluasi digital untuk mengukur dampak pelatihan dasar terhadap peningkatan kompetensi dan profesionalisme ASN Kabupaten Ciamis.
-                </p>
-                <a href="#" class="btn-footer-accent" onclick="openModal()">
-                    <i class="fas fa-clipboard-check"></i> Isi Evaluasi
-                </a>
-            </div>
-
-            <div class="footer-col footer-links">
-                <h4>Link Cepat</h4>
-                <ul>
-                    <li><a href="#hero"><i class="fas fa-home"></i> Beranda</a></li>
-                    <li><a href="#form-section"><i class="fas fa-file-alt"></i> Evaluasi</a></li>
-                    <li><a href="#chart-section"><i class="fas fa-chart-bar"></i> Statistik</a></li>
-                    <li><a href="#footer"><i class="fas fa-envelope"></i> Kontak</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col footer-links">
-                <h4>Layanan</h4>
-                <ul>
-                    <li><a href="#"><i class="fas fa-comments"></i> Konsultasi & Saran</a></li>
-                    <li><a href="#"><i class="fas fa-newspaper"></i> Informasi Terkini</a></li>
-                    <li><a href="#"><i class="fas fa-download"></i> Unduhan</a></li>
-                    <li><a href="#"><i class="fas fa-question-circle"></i> Bantuan</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col footer-contact">
-                <h4>Kontak Kami</h4>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <p>Jl. Sadananya No. 27, Kelurahan Maleber, Kecamatan Ciamis, Kabupaten Ciamis</p>
+                <div class="header-text">
+                    <h1>Evaluasi Pasca Pelatihan Dasar CPNS</h1>
+                    <p>Kabupaten Ciamis · Pola Pengiriman</p>
                 </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <p>bidangpkabkpsdmciamis@gmail.com<br>bkpsdm@ciamiskab.go.id</p>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <p>(0265) 771234<br>Senin - Jumat, 08:00 - 16:00 WIB</p>
-                </div>
+            </div>
+            <div class="badge-pola">
+                <strong><i class="fas fa-paper-plane"></i> Pola Pengiriman</strong>
+               
             </div>
         </div>
 
-        <div class="partner-logos">
-            <img src="https://i.ibb.co.com/tMnbFSr5/Lambang-Kabupaten-Ciamis.png" alt="Lambang Kabupaten Ciamis" class="partner-logo">
-            <img src="https://i.ibb.co.com/JWw8qHmM/logo-bkpsdm.png" alt="Logo BKPSDM" class="partner-logo">
-            <img src="https://i.ibb.co.com/6JvSKyNf/Logo-Ber-AKHLAK-svg.png" alt="Logo BerAKHLAK" class="partner-logo">
-            <img src="https://i.ibb.co.com/99NKJGNg/bangga.png" alt="Bangga Melayani Bangsa" class="partner-logo">
-        </div>
+        <!-- ===== FORM CONTAINER ===== -->
+        <div class="form-container" id="formSection">
+            <h2>
+                <i class="fas fa-clipboard-list" style="background: linear-gradient(135deg, #6a4bcf, #4a3a8a); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                Formulir Evaluasi
+                <small>Pola Pengiriman</small>
+            </h2>
 
-        <div class="footer-bottom">
-            <div class="copyright">
-                <p>&copy; 2025 <a href="#">PKA BKPSDM Kabupaten Ciamis</a>. All Rights Reserved.</p>
-                <p>Formulir Pasca Latsar CPNS 2025 | Versi 2.0</p>
+            <!-- STEP PILIH PERAN -->
+            <div id="step-pilih" class="step active">
+                <div style="text-align: center; padding: 10px 0 6px;">
+                    <h3 style="color: #1e164a; font-weight: 650;">Pilih Peran Anda</h3>
+                    <p style="color: #3d3578; margin: 4px 0 20px;">Silakan pilih peran Anda untuk mengisi formulir evaluasi</p>
+                </div>
+                <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin: 8px 0 12px;">
+                    <button class="btn-role" onclick="pilihFormulir('alumni')">
+                        <i class="fas fa-user-graduate"></i> Alumni
+                    </button>
+                    <button class="btn-role btn-role-secondary" onclick="pilihFormulir('atasan')">
+                        <i class="fas fa-user-tie"></i> Atasan Alumni
+                    </button>
+                </div>
+                <div class="petunjuk" style="border-left-color: #7d62d9; margin-top: 16px;">
+                    <p style="margin: 6px 0 0;">
+                        <i class="fas fa-info-circle" style="color: #6a4bcf;"></i>
+                        <strong>Pola Pengiriman:</strong> Formulir ini sebagai evaluasi pasca <strong>Latsar 2025 (Angkatan I)</strong> 
+                         melalui pola pengiriman.
+                        Jika Bapak / Ibu merupakan Atasan dari peserta, pilih peran <strong>Atasan Alumni</strong>.
+                    </p>
+                </div>
             </div>
-            <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+
+            <!-- STEP IDENTITAS -->
+            <div id="step-identitas" class="step">
+                <div id="form-identitas"></div>
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="batal()">Batalkan</button>
+                    <button class="btn btn-primary" onclick="lanjutKePetunjuk()">Selanjutnya</button>
+                </div>
+            </div>
+
+            <!-- STEP PETUNJUK -->
+            <div id="step-petunjuk" class="step">
+                <div class="petunjuk">
+                    <h4>Petunjuk Pengisian</h4>
+                    <p style="margin-top: 2px;">Berilah tanda atau tuliskan jawaban sesuai kondisi nyata. Skor penilaian:</p>
+                    <ul>
+                        <li>1 — Tidak Sesuai</li>
+                        <li>2 — Kurang Sesuai</li>
+                        <li>3 — Sesuai</li>
+                        <li>4 — Sangat Sesuai</li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="kembaliKeIdentitas()">Kembali</button>
+                    <button class="btn btn-success" onclick="mulaiPengisian()">Mulai Mengisi</button>
+                </div>
+            </div>
+
+            <!-- STEP PENGISIAN INDIKATOR -->
+            <div id="step-pengisian" class="step">
+                <div id="indikator-container"></div>
+                <div class="btn-group">
+                    <button class="btn btn-outline" id="btn-kembali-indikator" onclick="kembaliIndikator()">Kembali</button>
+                    <button class="btn btn-primary" id="btn-selanjutnya" onclick="selanjutnyaIndikator()">Selanjutnya</button>
+                </div>
+            </div>
+
+            <!-- STEP KONFIRMASI -->
+            <div id="step-konfirmasi" class="step">
+                <div style="background: rgba(243, 240, 253, 0.7); backdrop-filter: blur(6px); border-radius: 26px; padding: 22px 26px; margin: 12px 0 20px; border: 1px solid rgba(255,255,255,0.3);">
+                    <h4 style="margin: 0 0 6px; color: #1f1a4a;">Tinjau Kembali Jawaban</h4>
+                    <p style="margin: 0; color: #3d3578;">Pastikan semua pernyataan telah terisi dengan benar.</p>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="setuju" onchange="toggleKirim()">
+                    <label for="setuju">Saya menyatakan bahwa semua jawaban telah sesuai dan siap dikirim.</label>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="kembaliKePengisian()">Kembali</button>
+                    <button class="btn btn-success" id="btn-kirim" disabled onclick="kirimData()">Kirim Evaluasi</button>
+                </div>
+            </div>
+
+            <!-- STEP TERIMA KASIH -->
+            <div id="step-terimakasih" class="step">
+                <div style="text-align: center; padding: 44px 10px 28px;">
+                    <div style="font-size: 3.4rem; margin-bottom: 8px; background: linear-gradient(145deg, #6a4bcf, #9b85e0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✓</div>
+                    <h3 style="color: #1e164a; font-weight: 650;">Terima Kasih</h3>
+                    <p style="font-size: 1.1rem; color: #3d3578;">Formulir penilaian pasca pelatihan dasar telah berhasil disimpan.</p>
+                    <div style="margin-top: 24px; background: rgba(240, 236, 252, 0.7); backdrop-filter: blur(4px); padding: 8px 24px; border-radius: 60px; display: inline-block; color: #2c2366; border: 1px solid rgba(255,255,255,0.3);">Data tersimpan</div>
+                    <div style="margin-top: 20px;">
+                        <a href="index.html" class="btn btn-primary" style="text-decoration: none;">Kembali ke Beranda</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</footer>
 
-<!-- ===== SCROLL TO TOP ===== -->
-<div class="scroll-top" id="scrollTop">
-    <i class="fas fa-arrow-up"></i>
-</div>
+    <script>
+        // ====================== KONFIGURASI ======================
+        // Ganti URL_GAS dengan URL Apps Script Anda yang baru
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwlu1AKS2HbFJtxinyFTzYqkmW7Fcbh99zbPV9gzpdDBmPrGV_EXsxMoNwLnddZhuskEg/exec';
+        const SHEET_ID = '1TQ_c3w8YP4c4vaq0y6FvqSND_lD83vovPh8dTbw5rU4';
 
-<script>
-    // ====================== KONFIGURASI ======================
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwAQoAXCJsvEYAxpSGtd_SDQ143w1l4pi8JPtGj1GisTFhpwXzaGbkv56jGyU47_mR3/exec';
-    const SHEET_ID = '1DKUe896wXlG23xee17DNm6Y8GoQfjBayjCLsTgjNS3E';
+        // ====================== DATA PESERTA ======================
+        const PESERTA = {
+            nama: 'Jose Eldad Pratama Zebua, S.Tr.I.P.',
+            nip: '200204142024091001',
+            angkatan: 'I'
+        };
 
-    // ====================== STATE ======================
-    const FORM = { jenis: null, data: {}, indikatorIndex: 0, jawaban: {} };
-    let isSubmitting = false;
-    let chartAlumniInstance = null;
-    let chartAtasanInstance = null;
+        // ====================== STATE ======================
+        const FORM = { jenis: null, data: {}, indikatorIndex: 0, jawaban: {} };
+        let isSubmitting = false;
 
-    // ====================== NAV TOGGLE ======================
-    function toggleNav() {
-        document.getElementById('navLinks').classList.toggle('active');
-    }
+        // ====================== STRUKTUR INDIKATOR ======================
+        const INDIKATOR = [
+            { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Bela Negara', items: [
+                'Mampu berkorban untuk kepentingan organisasi',
+                'Mampu berpikir kritis dalam pengembangan organisasi',
+                'Semakin disiplin dalam menjalankan tugas jabatan sebagai PNS'
+            ]},
+            { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Nilai-Nilai Dasar PNS', items: [
+                'Memiliki komitmen memberikan pelayanan prima demi kepuasan masyarakat',
+                'Bertanggung jawab atas tugas yang diberikan',
+                'Terus belajar dan mengembangkan kapasitas diri dan orang lain',
+                'Menghargai setiap orang apapun latar belakangnya',
+                'Mengutamakan kepentingan organisasi di atas kepentingan individu',
+                'Terus berinovasi dan mengembangkan kreativitas dalam menghadapi perubahan',
+                'Membangun kerjasama baik di internal maupun eksternal organisasi'
+            ]},
+            { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Kedudukan dan Peran PNS', items: [
+                'Lebih mampu menjalankan hak dan kewajiban sebagai PNS',
+                'Lebih bijak menggunakan media sosial',
+                'Mampu mengoptimalkan penggunaan sarana dan prasarana digital'
+            ]},
+            { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Pelaksanaan Tugas dan Jabatan', items: [
+                'Lebih responsif terhadap tuntutan layanan',
+                'Pekerjaan dapat diselesaikan dengan baik',
+                'Lebih mudah melakukan transfer pengetahuan',
+                'Menciptakan lingkungan kerja yang kondusif',
+                'Rela melakukan pekerjaan di luar jam kerja',
+                'Lebih mudah memberikan solusi terkait permasalahan yang ada',
+                'Lebih mudah mendapatkan kepercayaan dari orang lain'
+            ]},
+            { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Keberlanjutan Aktualisasi', items: [
+                'Terdapat keberlanjutan Aktualisasi (Ya/Tidak)',
+                'Jika Ya, Mohon Jelaskan hasil dan manfaatnya',
+                'Jika Tidak, Jelaskan kendala/hambatan dalam melanjutkan aktualisasi'
+            ]},
+            { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Peningkatan Kinerja Organisasi dan Layanan', items: [
+                'Organisasi lebih tertib administrasi',
+                'Pelayanan organisasi lebih meningkat',
+                'Pimpinan merasa lebih terbantu dalam pekerjaan',
+                'Membantu mengembangkan jejaring'
+            ]}
+        ];
 
-    // ====================== MODAL ======================
-    function openModal() {
-        document.getElementById('modalOverlay').classList.add('active');
-        // Scroll ke form jika sudah ada
-        document.getElementById('formSection').classList.add('active');
-        document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function closeModal() {
-        document.getElementById('modalOverlay').classList.remove('active');
-    }
-
-    function selectRole(jenis) {
-        closeModal();
-        pilihFormulir(jenis);
-    }
-
-    // ====================== STRUKTUR INDIKATOR ======================
-    const INDIKATOR = [
-        { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Bela Negara', items: [
-            'Mampu berkorban untuk kepentingan organisasi',
-            'Mampu berpikir kritis dalam pengembangan organisasi',
-            'Semakin disiplin dalam menjalankan tugas jabatan sebagai PNS'
-        ]},
-        { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Nilai-Nilai Dasar PNS', items: [
-            'Memiliki komitmen memberikan pelayanan prima demi kepuasan masyarakat',
-            'Bertanggung jawab atas tugas yang diberikan',
-            'Terus belajar dan mengembangkan kapasitas diri dan orang lain',
-            'Menghargai setiap orang apapun latar belakangnya',
-            'Mengutamakan kepentingan organisasi di atas kepentingan individu',
-            'Terus berinovasi dan mengembangkan kreativitas dalam menghadapi perubahan',
-            'Membangun kerjasama baik di internal maupun eksternal organisasi'
-        ]},
-        { kode: 'A', judul: 'Perubahan Sikap Perilaku', sub: 'Kedudukan dan Peran PNS', items: [
-            'Lebih mampu menjalankan hak dan kewajiban sebagai PNS',
-            'Lebih bijak menggunakan media sosial',
-            'Mampu mengoptimalkan penggunaan sarana dan prasarana digital'
-        ]},
-        { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Pelaksanaan Tugas dan Jabatan', items: [
-            'Lebih responsif terhadap tuntutan layanan',
-            'Pekerjaan dapat diselesaikan dengan baik',
-            'Lebih mudah melakukan transfer pengetahuan',
-            'Menciptakan lingkungan kerja yang kondusif',
-            'Rela melakukan pekerjaan di luar jam kerja',
-            'Lebih mudah memberikan solusi terkait permasalahan yang ada',
-            'Lebih mudah mendapatkan kepercayaan dari orang lain'
-        ]},
-        { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Keberlanjutan Aktualisasi', items: [
-            'Terdapat keberlanjutan Aktualisasi (Ya/Tidak)',
-            'Jika Ya, Mohon Jelaskan hasil dan manfaatnya',
-            'Jika Tidak, Jelaskan kendala/hambatan dalam melanjutkan aktualisasi'
-        ]},
-        { kode: 'B', judul: 'Dampak Pelatihan', sub: 'Peningkatan Kinerja Organisasi dan Layanan', items: [
-            'Organisasi lebih tertib administrasi',
-            'Pelayanan organisasi lebih meningkat',
-            'Pimpinan merasa lebih terbantu dalam pekerjaan',
-            'Membantu mengembangkan jejaring'
-        ]}
-    ];
-
-    // ====================== FUNGSI UI ======================
-    function showStep(id) {
-        document.querySelectorAll('#formSection .step').forEach(el => el.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
-
-    function pilihFormulir(jenis) {
-        FORM.jenis = jenis;
-        document.getElementById('form-identitas').innerHTML = '';
-        if (jenis === 'alumni') buildIdentitasAlumni();
-        else buildIdentitasAtasan();
-        showStep('step-identitas');
-        document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function batal() { showStep('step-pilih'); }
-
-    function lanjutKePetunjuk() {
-        if (FORM.jenis === 'alumni') {
-            const angkatan = document.getElementById('angkatan')?.value;
-            const ndh = document.getElementById('ndh')?.value;
-            const nama = document.getElementById('nama')?.value;
-            if (!angkatan || !ndh || !nama) { alert('Pilih Angkatan dan NDH terlebih dahulu.'); return; }
-            const hp = document.getElementById('hp')?.value;
-            const email = document.getElementById('email')?.value;
-            const instansi = document.getElementById('instansi')?.value;
-            if (!hp || !email || !instansi) { alert('Lengkapi identitas (No HP, Email, Instansi).'); return; }
-            FORM.data = { 
-                angkatan, ndh, nama, hp, email, instansi,
-                jabatanPel: document.getElementById('jabatanPel')?.value || '',
-                jabatanSkrg: document.getElementById('jabatanSkrg')?.value || '',
-                waktu: document.getElementById('waktu')?.value || '',
-                metode: 'Blended Learning'
-            };
-        } else {
-            const namaAtasan = document.getElementById('namaAtasan')?.value;
-            const hpAtasan = document.getElementById('hpAtasan')?.value;
-            const instansiAtasan = document.getElementById('instansiAtasan')?.value;
-            const angkatanAlumni = document.getElementById('angkatanAtasan')?.value;
-            const ndhAlumni = document.getElementById('ndhAlumni')?.value;
-            const namaAlumni = document.getElementById('namaAlumni')?.value;
-            if (!namaAtasan || !hpAtasan || !instansiAtasan || !angkatanAlumni || !ndhAlumni || !namaAlumni) { 
-                alert('Lengkapi semua identitas.'); 
-                return; 
-            }
-            FORM.data = { 
-                namaAtasan, hpAtasan, instansiAtasan,
-                angkatanAlumni, ndhAlumni, namaAlumni 
-            };
+        // ====================== FUNGSI UI ======================
+        function showStep(id) {
+            document.querySelectorAll('#formSection .step').forEach(el => el.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
         }
-        showStep('step-petunjuk');
-    }
 
-    function kembaliKeIdentitas() { showStep('step-identitas'); }
-
-    function mulaiPengisian() {
-        FORM.indikatorIndex = 0;
-        FORM.jawaban = {};
-        renderIndikator(0);
-        showStep('step-pengisian');
-    }
-
-    function renderIndikator(idx) {
-        const container = document.getElementById('indikator-container');
-        if (idx >= INDIKATOR.length) {
-            showStep('step-konfirmasi');
-            return;
-        }
-        const g = INDIKATOR[idx];
-        let html = `<div class="card"><h4 style="margin-top:0; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">${g.judul} <span style="font-weight:400; font-size:0.9rem; color:#4d3a9e;">— ${g.sub}</span></h4>`;
-        g.items.forEach((item, i) => {
-            const kode = g.kode + String(idx+1).padStart(1,'0') + String(i+1).padStart(1,'0');
-            const val = FORM.jawaban[kode] || '';
-            
-            if (item.includes('Ya/Tidak')) {
-                html += `<div class="grid-score"><span class="pernyataan">${item}</span>
-                    <label><input type="radio" name="${kode}" value="Ya" ${val==='Ya'?'checked':''} onchange="simpanJawaban('${kode}',this.value)"> Ya</label>
-                    <label><input type="radio" name="${kode}" value="Tidak" ${val==='Tidak'?'checked':''} onchange="simpanJawaban('${kode}',this.value)"> Tidak</label>
-                    <span></span><span></span></div>`;
-            } else if (item.toLowerCase().includes('jelaskan') || item.toLowerCase().includes('kendala') || item.toLowerCase().includes('manfaatnya')) {
-                html += `<div style="margin:6px 0"><label style="font-weight:500;">${item}</label>
-                    <input type="text" class="text-input" id="txt_${kode}" value="${val}" onchange="simpanJawaban('${kode}',this.value)" placeholder="Tulis jawaban..."></div>`;
+        function pilihFormulir(jenis) {
+            FORM.jenis = jenis;
+            document.getElementById('form-identitas').innerHTML = '';
+            if (jenis === 'alumni') {
+                buildIdentitasAlumni();
             } else {
-                html += `<div class="grid-score"><span class="pernyataan">${item}</span>
-                    ${[1,2,3,4].map(n => `<label><input type="radio" name="${kode}" value="${n}" ${val==n?'checked':''} onchange="simpanJawaban('${kode}','${n}')"> ${n}</label>`).join('')}
-                </div>`;
+                buildIdentitasAtasan();
             }
-        });
-        html += '</div>';
-        container.innerHTML = html;
-        document.getElementById('btn-selanjutnya').innerText = (idx === INDIKATOR.length-1) ? 'Selesai' : 'Selanjutnya';
-        document.getElementById('btn-kembali-indikator').style.display = (idx === 0) ? 'none' : 'inline-block';
-    }
-
-    function simpanJawaban(kode, val) {
-        FORM.jawaban[kode] = val;
-    }
-
-    function selanjutnyaIndikator() {
-        const g = INDIKATOR[FORM.indikatorIndex];
-        const items = g.items;
-        let allFilled = true;
-        items.forEach((item, i) => {
-            const kode = g.kode + String(FORM.indikatorIndex+1).padStart(1,'0') + String(i+1).padStart(1,'0');
-            const val = FORM.jawaban[kode];
-            if (!val || val === '') allFilled = false;
-        });
-        if (!allFilled) { alert('Semua pernyataan wajib diisi.'); return; }
-
-        if (FORM.indikatorIndex === INDIKATOR.length-1) {
-            showStep('step-konfirmasi');
-        } else {
-            FORM.indikatorIndex++;
-            renderIndikator(FORM.indikatorIndex);
+            showStep('step-identitas');
+            document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    }
 
-    function kembaliIndikator() {
-        if (FORM.indikatorIndex > 0) {
-            FORM.indikatorIndex--;
-            renderIndikator(FORM.indikatorIndex);
+        function batal() {
+            showStep('step-pilih');
         }
-    }
 
-    function kembaliKePengisian() {
-        renderIndikator(INDIKATOR.length-1);
-        showStep('step-pengisian');
-    }
+        function lanjutKePetunjuk() {
+            if (FORM.jenis === 'alumni') {
+                const hp = document.getElementById('hp')?.value;
+                const email = document.getElementById('email')?.value;
+                const instansi = document.getElementById('instansi')?.value;
+                if (!hp || !email || !instansi) {
+                    alert('Lengkapi identitas (No HP, Email, Instansi).');
+                    return;
+                }
+                FORM.data = {
+                    nama: PESERTA.nama,
+                    nip: PESERTA.nip,
+                    angkatan: PESERTA.angkatan,
+                    hp: hp,
+                    email: email,
+                    instansi: instansi,
+                    jabatanPel: document.getElementById('jabatanPel')?.value || '',
+                    jabatanSkrg: document.getElementById('jabatanSkrg')?.value || '',
+                    waktu: document.getElementById('waktu')?.value || '',
+                    metode: 'Blanded Learning'
+                };
+            } else {
+                const namaAtasan = document.getElementById('namaAtasan')?.value;
+                const hpAtasan = document.getElementById('hpAtasan')?.value;
+                const instansiAtasan = document.getElementById('instansiAtasan')?.value;
+                if (!namaAtasan || !hpAtasan || !instansiAtasan) {
+                    alert('Lengkapi semua identitas atasan.');
+                    return;
+                }
+                FORM.data = {
+                    namaAtasan: namaAtasan,
+                    hpAtasan: hpAtasan,
+                    instansiAtasan: instansiAtasan,
+                    namaAlumni: PESERTA.nama,
+                    nipAlumni: PESERTA.nip,
+                    angkatanAlumni: PESERTA.angkatan
+                };
+            }
+            showStep('step-petunjuk');
+        }
 
-    function toggleKirim() {
-        document.getElementById('btn-kirim').disabled = !document.getElementById('setuju').checked;
-    }
+        function kembaliKeIdentitas() {
+            showStep('step-identitas');
+        }
 
-    function resetForm() {
-        FORM.jenis = null;
-        FORM.data = {};
-        FORM.jawaban = {};
-        FORM.indikatorIndex = 0;
-        document.getElementById('formSection').classList.remove('active');
-        showStep('step-pilih');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+        function mulaiPengisian() {
+            FORM.indikatorIndex = 0;
+            FORM.jawaban = {};
+            renderIndikator(0);
+            showStep('step-pengisian');
+        }
 
-    // ====================== KIRIM DATA ======================
-    function kirimData() {
-        if (isSubmitting) return;
-        if (!document.getElementById('setuju').checked) { alert('Centang persetujuan terlebih dahulu.'); return; }
-
-        const btnKirim = document.getElementById('btn-kirim');
-        const originalText = btnKirim.innerHTML;
-        btnKirim.innerHTML = '<span class="spinner"></span> Mengirim...';
-        btnKirim.disabled = true;
-        btnKirim.classList.add('btn-loading');
-        isSubmitting = true;
-
-        const payload = {
-            jenis: FORM.jenis,
-            dataIdentitas: FORM.data,
-            jawaban: FORM.jawaban
-        };
-
-        fetch(GAS_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-        .then(() => {
-            showStep('step-terimakasih');
-            loadStats(); // Refresh stats
-        })
-        .catch(() => {
-            alert('Gagal menyimpan data. Silakan coba lagi.');
-            btnKirim.innerHTML = originalText;
-            btnKirim.disabled = false;
-            btnKirim.classList.remove('btn-loading');
-            isSubmitting = false;
-        })
-        .finally(() => {
-            isSubmitting = false;
-        });
-    }
-
-    // ====================== LOAD STATS & CHARTS ======================
-    async function loadStats() {
-        try {
-            const response = await fetch(`${GAS_URL}?action=getStats&sheetId=${SHEET_ID}`);
-            const data = await response.json();
-            
-            if (data) {
-                document.getElementById('totalAlumni').textContent = data.totalAlumni || 0;
-                document.getElementById('totalAtasan').textContent = data.totalAtasan || 0;
+        function renderIndikator(idx) {
+            const container = document.getElementById('indikator-container');
+            if (idx >= INDIKATOR.length) {
+                showStep('step-konfirmasi');
+                return;
+            }
+            const g = INDIKATOR[idx];
+            let html = `<div class="card"><h4 style="margin-top:0; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">${g.judul} <span style="font-weight:400; font-size:0.9rem; color:#4d3a9e;">— ${g.sub}</span></h4>`;
+            g.items.forEach((item, i) => {
+                const kode = g.kode + String(idx+1).padStart(1,'0') + String(i+1).padStart(1,'0');
+                const val = FORM.jawaban[kode] || '';
                 
-                // Update charts
-                updateCharts(data);
-            }
-        } catch (error) {
-            console.error('Error loading stats:', error);
+                if (item.includes('Ya/Tidak')) {
+                    html += `<div class="grid-score"><span class="pernyataan">${item}</span>
+                        <label><input type="radio" name="${kode}" value="Ya" ${val==='Ya'?'checked':''} onchange="simpanJawaban('${kode}',this.value)"> Ya</label>
+                        <label><input type="radio" name="${kode}" value="Tidak" ${val==='Tidak'?'checked':''} onchange="simpanJawaban('${kode}',this.value)"> Tidak</label>
+                        <span></span><span></span></div>`;
+                } else if (item.toLowerCase().includes('jelaskan') || item.toLowerCase().includes('kendala') || item.toLowerCase().includes('manfaatnya')) {
+                    html += `<div style="margin:6px 0"><label style="font-weight:500;">${item}</label>
+                        <input type="text" class="text-input" id="txt_${kode}" value="${val}" onchange="simpanJawaban('${kode}',this.value)" placeholder="Tulis jawaban..."></div>`;
+                } else {
+                    html += `<div class="grid-score"><span class="pernyataan">${item}</span>
+                        ${[1,2,3,4].map(n => `<label><input type="radio" name="${kode}" value="${n}" ${val==n?'checked':''} onchange="simpanJawaban('${kode}','${n}')"> ${n}</label>`).join('')}
+                    </div>`;
+                }
+            });
+            html += '</div>';
+            container.innerHTML = html;
+            document.getElementById('btn-selanjutnya').innerText = (idx === INDIKATOR.length-1) ? 'Selesai' : 'Selanjutnya';
+            document.getElementById('btn-kembali-indikator').style.display = (idx === 0) ? 'none' : 'inline-block';
         }
-    }
 
-    function updateCharts(data) {
-        const alumniData = data.alumniPerAngkatan || {};
-        const atasanData = data.atasanPerAngkatan || {};
-        
-        const angkatanLabels = Object.keys(alumniData);
-        const alumniValues = Object.values(alumniData);
-        const atasanValues = angkatanLabels.map(a => atasanData[a] || 0);
-
-        // Alumni Chart
-        const ctxAlumni = document.getElementById('chartAlumni').getContext('2d');
-        if (chartAlumniInstance) chartAlumniInstance.destroy();
-        chartAlumniInstance = new Chart(ctxAlumni, {
-            type: 'bar',
-            data: {
-                labels: angkatanLabels,
-                datasets: [{
-                    label: 'Jumlah Alumni',
-                    data: alumniValues,
-                    backgroundColor: 'rgba(106, 75, 207, 0.7)',
-                    borderColor: '#6a4bcf',
-                    borderWidth: 2,
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' },
-                        grid: { color: 'rgba(255,255,255,0.05)' }
-                    },
-                    x: {
-                        ticks: { color: 'rgba(255,255,255,0.7)' },
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // Atasan Chart
-        const ctxAtasan = document.getElementById('chartAtasan').getContext('2d');
-        if (chartAtasanInstance) chartAtasanInstance.destroy();
-        chartAtasanInstance = new Chart(ctxAtasan, {
-            type: 'bar',
-            data: {
-                labels: angkatanLabels,
-                datasets: [{
-                    label: 'Jumlah Atasan',
-                    data: atasanValues,
-                    backgroundColor: 'rgba(52, 211, 153, 0.7)',
-                    borderColor: '#34d399',
-                    borderWidth: 2,
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { stepSize: 1, color: 'rgba(255,255,255,0.7)' },
-                        grid: { color: 'rgba(255,255,255,0.05)' }
-                    },
-                    x: {
-                        ticks: { color: 'rgba(255,255,255,0.7)' },
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-    }
-
-    // ====================== BUILD IDENTITAS ALUMNI ======================
-    function buildIdentitasAlumni() {
-        const div = document.getElementById('form-identitas');
-        div.innerHTML = `
-            <h3 style="margin-top:0; color:#1f1a4a;">Identitas Alumni</h3>
-            <div class="row">
-                <div class="form-group"><label>Angkatan</label><select id="angkatan" onchange="pilihAngkatan()"><option value="">Pilih</option></select></div>
-                <div class="form-group"><label>NDH</label><select id="ndh" onchange="pilihNdh()"><option value="">Pilih</option></select></div>
-                <div class="form-group"><label>Nama</label><input id="nama" readonly style="background:rgba(243,240,252,0.5);"></div>
-            </div>
-            <div class="row">
-                <div class="form-group"><label>No HP Responden</label><input id="hp" placeholder="0812xxxx"></div>
-                <div class="form-group"><label>Alamat Email</label><input id="email" placeholder="email@domain.com"></div>
-            </div>
-            <div class="row">
-                <div class="form-group"><label>Nama Instansi</label><input id="instansi" placeholder="Nama Instansi"></div>
-                <div class="form-group"><label>Jabatan Saat Pelatihan</label><input id="jabatanPel" placeholder="Jabatan saat pelatihan"></div>
-            </div>
-            <div class="row">
-                <div class="form-group"><label>Jabatan Saat Ini</label><input id="jabatanSkrg" placeholder="Jabatan saat ini"></div>
-                <div class="form-group"><label>Waktu Pelatihan</label><input id="waktu" placeholder="Contoh: 12 Februari - 2 Desember 2025"></div>
-            </div>
-            <div class="form-group"><label>Metode Pelaksanaan</label><input id="metode" value="Blended Learning" readonly style="background:rgba(240,236,252,0.5);"></div>
-        `;
-        fetch(`${GAS_URL}?action=getAngkatan&sheetId=${SHEET_ID}`)
-        .then(r => r.json()).then(data => {
-            const sel = document.getElementById('angkatan');
-            if (data && data.length) {
-                data.forEach(a => { const opt = document.createElement('option'); opt.value = a; opt.text = a; sel.appendChild(opt); });
-            }
-        }).catch(() => { console.log('Gagal ambil angkatan'); });
-        
-        window.pilihAngkatan = function() {
-            const angkatan = document.getElementById('angkatan').value;
-            fetch(`${GAS_URL}?action=getNdh&sheetId=${SHEET_ID}&angkatan=${angkatan}`)
-            .then(r => r.json()).then(data => {
-                const sel = document.getElementById('ndh'); 
-                sel.innerHTML = '<option value="">Pilih</option>';
-                if (data && data.length) {
-                    data.forEach(n => { const opt = document.createElement('option'); opt.value = n; opt.text = n; sel.appendChild(opt); });
-                }
-                document.getElementById('nama').value = '';
-            }).catch(() => {});
-        };
-        
-        window.pilihNdh = function() {
-            const angkatan = document.getElementById('angkatan').value;
-            const ndh = document.getElementById('ndh').value;
-            if (!angkatan || !ndh) return;
-            fetch(`${GAS_URL}?action=getNama&sheetId=${SHEET_ID}&angkatan=${angkatan}&ndh=${ndh}`)
-            .then(r => r.json()).then(data => { 
-                document.getElementById('nama').value = data || ''; 
-            }).catch(() => {});
-        };
-    }
-
-    // ====================== BUILD IDENTITAS ATASAN ======================
-    function buildIdentitasAtasan() {
-        const div = document.getElementById('form-identitas');
-        div.innerHTML = `
-            <h3 style="margin-top:0; color:#1f1a4a;">Identitas Atasan Alumni</h3>
-            <div class="row">
-                <div class="form-group"><label>Nama Responden (Atasan)</label><input id="namaAtasan" placeholder="Nama lengkap atasan"></div>
-                <div class="form-group"><label>No HP Responden</label><input id="hpAtasan" placeholder="0812xxxx"></div>
-            </div>
-            <div class="form-group"><label>Nama Instansi</label><input id="instansiAtasan" placeholder="Nama instansi"></div>
-            <hr>
-            <h4 style="color:#1f1a4a;">Identitas Alumni yang Dinilai</h4>
-            <div class="row">
-                <div class="form-group"><label>Angkatan</label><select id="angkatanAtasan" onchange="pilihAngkatanAtasan()"><option value="">Pilih</option></select></div>
-                <div class="form-group"><label>NDH</label><select id="ndhAlumni" onchange="pilihNdhAtasan()"><option value="">Pilih</option></select></div>
-                <div class="form-group"><label>Nama Alumni</label><input id="namaAlumni" readonly style="background:rgba(243,240,252,0.5);"></div>
-            </div>
-        `;
-        fetch(`${GAS_URL}?action=getAngkatan&sheetId=${SHEET_ID}`)
-        .then(r => r.json()).then(data => {
-            const sel = document.getElementById('angkatanAtasan');
-            if (data && data.length) {
-                data.forEach(a => { const opt = document.createElement('option'); opt.value = a; opt.text = a; sel.appendChild(opt); });
-            }
-        }).catch(() => {});
-        
-        window.pilihAngkatanAtasan = function() {
-            const angkatan = document.getElementById('angkatanAtasan').value;
-            fetch(`${GAS_URL}?action=getNdh&sheetId=${SHEET_ID}&angkatan=${angkatan}`)
-            .then(r => r.json()).then(data => {
-                const sel = document.getElementById('ndhAlumni'); 
-                sel.innerHTML = '<option value="">Pilih</option>';
-                if (data && data.length) {
-                    data.forEach(n => { const opt = document.createElement('option'); opt.value = n; opt.text = n; sel.appendChild(opt); });
-                }
-                document.getElementById('namaAlumni').value = '';
-            }).catch(() => {});
-        };
-        
-        window.pilihNdhAtasan = function() {
-            const angkatan = document.getElementById('angkatanAtasan').value;
-            const ndh = document.getElementById('ndhAlumni').value;
-            if (!angkatan || !ndh) return;
-            fetch(`${GAS_URL}?action=getNama&sheetId=${SHEET_ID}&angkatan=${angkatan}&ndh=${ndh}`)
-            .then(r => r.json()).then(data => { 
-                document.getElementById('namaAlumni').value = data || ''; 
-            }).catch(() => {});
-        };
-    }
-
-    // ====================== SCROLL TO TOP ======================
-    window.addEventListener('scroll', function() {
-        const scrollBtn = document.getElementById('scrollTop');
-        if (window.scrollY > 300) {
-            scrollBtn.style.display = 'flex';
-        } else {
-            scrollBtn.style.display = 'none';
+        function simpanJawaban(kode, val) {
+            FORM.jawaban[kode] = val;
         }
-    });
 
-    document.getElementById('scrollTop').addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        function selanjutnyaIndikator() {
+            const g = INDIKATOR[FORM.indikatorIndex];
+            const items = g.items;
+            let allFilled = true;
+            items.forEach((item, i) => {
+                const kode = g.kode + String(FORM.indikatorIndex+1).padStart(1,'0') + String(i+1).padStart(1,'0');
+                const val = FORM.jawaban[kode];
+                if (!val || val === '') allFilled = false;
+            });
+            if (!allFilled) {
+                alert('Semua pernyataan wajib diisi.');
+                return;
+            }
 
-    // ====================== INIT ======================
-    document.addEventListener('DOMContentLoaded', function() {
-        loadStats();
-        // Set interval refresh setiap 60 detik
-        setInterval(loadStats, 60000);
-    });
-</script>
+            if (FORM.indikatorIndex === INDIKATOR.length-1) {
+                showStep('step-konfirmasi');
+            } else {
+                FORM.indikatorIndex++;
+                renderIndikator(FORM.indikatorIndex);
+            }
+        }
+
+        function kembaliIndikator() {
+            if (FORM.indikatorIndex > 0) {
+                FORM.indikatorIndex--;
+                renderIndikator(FORM.indikatorIndex);
+            }
+        }
+
+        function kembaliKePengisian() {
+            renderIndikator(INDIKATOR.length-1);
+            showStep('step-pengisian');
+        }
+
+        function toggleKirim() {
+            document.getElementById('btn-kirim').disabled = !document.getElementById('setuju').checked;
+        }
+
+        // ====================== KIRIM DATA ======================
+        function kirimData() {
+            if (isSubmitting) return;
+            if (!document.getElementById('setuju').checked) {
+                alert('Centang persetujuan terlebih dahulu.');
+                return;
+            }
+
+            const btnKirim = document.getElementById('btn-kirim');
+            const originalText = btnKirim.innerHTML;
+            btnKirim.innerHTML = '<span class="spinner"></span> Mengirim...';
+            btnKirim.disabled = true;
+            btnKirim.classList.add('btn-loading');
+            isSubmitting = true;
+
+            const payload = {
+                jenis: FORM.jenis,
+                dataIdentitas: FORM.data,
+                jawaban: FORM.jawaban,
+                polaPengiriman: true
+            };
+
+            fetch(GAS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                showStep('step-terimakasih');
+            })
+            .catch(() => {
+                alert('Gagal menyimpan data. Silakan coba lagi.');
+                btnKirim.innerHTML = originalText;
+                btnKirim.disabled = false;
+                btnKirim.classList.remove('btn-loading');
+                isSubmitting = false;
+            })
+            .finally(() => {
+                isSubmitting = false;
+            });
+        }
+
+        // ====================== BUILD IDENTITAS ALUMNI ======================
+        function buildIdentitasAlumni() {
+            const div = document.getElementById('form-identitas');
+            div.innerHTML = `
+                <h3 style="margin-top:0; color:#1f1a4a;">
+                    <i class="fas fa-user-graduate" style="color:#6a4bcf;"></i> Identitas Alumni
+                </h3>
+                <div class="identitas-info">
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-user"></i> Nama</span>
+                        <span class="info-value">${PESERTA.nama}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-id-card"></i> NIP</span>
+                        <span class="info-value">${PESERTA.nip}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-layer-group"></i> Angkatan</span>
+                        <span class="info-value">${PESERTA.angkatan}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-tag"></i> Pola Pengiriman</span>
+                        <span class="info-value">✓ Terverifikasi</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="form-group"><label>No HP Responden</label><input id="hp" placeholder="0812xxxx"></div>
+                    <div class="form-group"><label>Alamat Email</label><input id="email" placeholder="email@domain.com"></div>
+                </div>
+                <div class="row">
+                    <div class="form-group"><label>Nama Instansi</label><input id="instansi" placeholder="Nama Instansi"></div>
+                    <div class="form-group"><label>Jabatan Saat Pelatihan</label><input id="jabatanPel" placeholder="Jabatan saat pelatihan"></div>
+                </div>
+                <div class="row">
+                    <div class="form-group"><label>Jabatan Saat Ini</label><input id="jabatanSkrg" placeholder="Jabatan saat ini"></div>
+                    <div class="form-group"><label>Waktu Pelatihan</label><input id="waktu" placeholder="Contoh: 12 Februari - 2 Desember 2025"></div>
+                </div>
+                <div class="form-group"><label>Metode Pelaksanaan</label><input id="metode" value="Blanded Learning" readonly style="background:rgba(240,236,252,0.5);"></div>
+            `;
+        }
+
+        // ====================== BUILD IDENTITAS ATASAN ======================
+        function buildIdentitasAtasan() {
+            const div = document.getElementById('form-identitas');
+            div.innerHTML = `
+                <h3 style="margin-top:0; color:#1f1a4a;">
+                    <i class="fas fa-user-tie" style="color:#6a4bcf;"></i> Identitas Atasan Alumni
+                </h3>
+                <div class="row">
+                    <div class="form-group"><label>Nama Responden (Atasan)</label><input id="namaAtasan" placeholder="Nama lengkap atasan"></div>
+                    <div class="form-group"><label>No HP Responden</label><input id="hpAtasan" placeholder="0812xxxx"></div>
+                </div>
+                <div class="form-group"><label>Nama Instansi</label><input id="instansiAtasan" placeholder="Nama instansi"></div>
+                <hr>
+                <h4 style="color:#1f1a4a; display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-user-graduate" style="color:#6a4bcf;"></i> Identitas Alumni yang Dinilai
+                </h4>
+                <div class="identitas-info">
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-user"></i> Nama</span>
+                        <span class="info-value">${PESERTA.nama}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-id-card"></i> NIP</span>
+                        <span class="info-value">${PESERTA.nip}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-layer-group"></i> Angkatan</span>
+                        <span class="info-value">${PESERTA.angkatan}</span>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
 
 </body>
 </html>
