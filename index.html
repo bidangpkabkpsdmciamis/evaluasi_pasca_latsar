@@ -1662,7 +1662,9 @@
     function openModal() {
         document.getElementById('modalOverlay').classList.add('active');
         document.getElementById('formSection').classList.add('active');
-        document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+            document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     }
 
     function closeModal() {
@@ -1732,18 +1734,31 @@
         document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function batal() { showStep('step-pilih'); }
+    function batal() { 
+        showStep('step-pilih'); 
+        document.getElementById('formSection').classList.remove('active');
+    }
 
     function lanjutKePetunjuk() {
         if (FORM.jenis === 'alumni') {
             const angkatan = document.getElementById('angkatan')?.value;
             const ndh = document.getElementById('ndh')?.value;
             const nama = document.getElementById('nama')?.value;
-            if (!angkatan || !ndh || !nama) { alert('Pilih Angkatan dan NDH terlebih dahulu.'); return; }
+            if (!angkatan || !ndh) { 
+                alert('Pilih Angkatan dan NDH terlebih dahulu.'); 
+                return; 
+            }
+            if (!nama || nama.trim() === '') {
+                alert('Data nama tidak ditemukan. Pastikan NDH benar.');
+                return;
+            }
             const hp = document.getElementById('hp')?.value;
             const email = document.getElementById('email')?.value;
             const instansi = document.getElementById('instansi')?.value;
-            if (!hp || !email || !instansi) { alert('Lengkapi identitas (No HP, Email, Instansi).'); return; }
+            if (!hp || hp.trim() === '') { alert('Isi No HP Responden.'); return; }
+            if (!email || email.trim() === '') { alert('Isi Alamat Email.'); return; }
+            if (!instansi || instansi.trim() === '') { alert('Isi Nama Instansi.'); return; }
+            
             FORM.data = { 
                 angkatan, ndh, nama, hp, email, instansi,
                 jabatanPel: document.getElementById('jabatanPel')?.value || '',
@@ -1758,10 +1773,14 @@
             const angkatanAlumni = document.getElementById('angkatanAtasan')?.value;
             const ndhAlumni = document.getElementById('ndhAlumni')?.value;
             const namaAlumni = document.getElementById('namaAlumni')?.value;
-            if (!namaAtasan || !hpAtasan || !instansiAtasan || !angkatanAlumni || !ndhAlumni || !namaAlumni) { 
-                alert('Lengkapi semua identitas.'); 
-                return; 
-            }
+            
+            if (!namaAtasan || namaAtasan.trim() === '') { alert('Isi Nama Responden (Atasan).'); return; }
+            if (!hpAtasan || hpAtasan.trim() === '') { alert('Isi No HP Responden.'); return; }
+            if (!instansiAtasan || instansiAtasan.trim() === '') { alert('Isi Nama Instansi.'); return; }
+            if (!angkatanAlumni) { alert('Pilih Angkatan Alumni.'); return; }
+            if (!ndhAlumni) { alert('Pilih NDH Alumni.'); return; }
+            if (!namaAlumni || namaAlumni.trim() === '') { alert('Data nama alumni tidak ditemukan. Pastikan NDH benar.'); return; }
+            
             FORM.data = { 
                 namaAtasan, hpAtasan, instansiAtasan,
                 angkatanAlumni, ndhAlumni, namaAlumni 
@@ -1819,12 +1838,19 @@
         const g = INDIKATOR[FORM.indikatorIndex];
         const items = g.items;
         let allFilled = true;
+        let emptyFields = [];
         items.forEach((item, i) => {
             const kode = g.kode + String(FORM.indikatorIndex+1).padStart(1,'0') + String(i+1).padStart(1,'0');
             const val = FORM.jawaban[kode];
-            if (!val || val === '') allFilled = false;
+            if (!val || val === '') {
+                allFilled = false;
+                emptyFields.push(item);
+            }
         });
-        if (!allFilled) { alert('Semua pernyataan wajib diisi.'); return; }
+        if (!allFilled) { 
+            alert('Semua pernyataan wajib diisi. Yang kosong: ' + emptyFields.join(', ')); 
+            return; 
+        }
 
         if (FORM.indikatorIndex === INDIKATOR.length-1) {
             showStep('step-konfirmasi');
@@ -1856,6 +1882,7 @@
         FORM.jawaban = {};
         FORM.indikatorIndex = 0;
         document.getElementById('formSection').classList.remove('active');
+        document.getElementById('modalOverlay').classList.remove('active');
         showStep('step-pilih');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1887,15 +1914,16 @@
         .then(() => {
             showStep('step-terimakasih');
             loadStats();
+            btnKirim.innerHTML = originalText;
+            btnKirim.disabled = false;
+            btnKirim.classList.remove('btn-loading');
+            isSubmitting = false;
         })
         .catch(() => {
             alert('Gagal menyimpan data. Silakan coba lagi.');
             btnKirim.innerHTML = originalText;
             btnKirim.disabled = false;
             btnKirim.classList.remove('btn-loading');
-            isSubmitting = false;
-        })
-        .finally(() => {
             isSubmitting = false;
         });
     }
@@ -2011,6 +2039,11 @@
         
         window.pilihAngkatan = function() {
             const angkatan = document.getElementById('angkatan').value;
+            if (!angkatan) {
+                document.getElementById('ndh').innerHTML = '<option value="">Pilih</option>';
+                document.getElementById('nama').value = '';
+                return;
+            }
             fetch(`${GAS_URL}?action=getNdh&sheetId=${SHEET_ID}&angkatan=${angkatan}`)
             .then(r => r.json()).then(data => {
                 const sel = document.getElementById('ndh'); 
@@ -2025,7 +2058,10 @@
         window.pilihNdh = function() {
             const angkatan = document.getElementById('angkatan').value;
             const ndh = document.getElementById('ndh').value;
-            if (!angkatan || !ndh) return;
+            if (!angkatan || !ndh) {
+                document.getElementById('nama').value = '';
+                return;
+            }
             fetch(`${GAS_URL}?action=getNama&sheetId=${SHEET_ID}&angkatan=${angkatan}&ndh=${ndh}`)
             .then(r => r.json()).then(data => { 
                 document.getElementById('nama').value = data || ''; 
@@ -2061,6 +2097,11 @@
         
         window.pilihAngkatanAtasan = function() {
             const angkatan = document.getElementById('angkatanAtasan').value;
+            if (!angkatan) {
+                document.getElementById('ndhAlumni').innerHTML = '<option value="">Pilih</option>';
+                document.getElementById('namaAlumni').value = '';
+                return;
+            }
             fetch(`${GAS_URL}?action=getNdh&sheetId=${SHEET_ID}&angkatan=${angkatan}`)
             .then(r => r.json()).then(data => {
                 const sel = document.getElementById('ndhAlumni'); 
@@ -2075,7 +2116,10 @@
         window.pilihNdhAtasan = function() {
             const angkatan = document.getElementById('angkatanAtasan').value;
             const ndh = document.getElementById('ndhAlumni').value;
-            if (!angkatan || !ndh) return;
+            if (!angkatan || !ndh) {
+                document.getElementById('namaAlumni').value = '';
+                return;
+            }
             fetch(`${GAS_URL}?action=getNama&sheetId=${SHEET_ID}&angkatan=${angkatan}&ndh=${ndh}`)
             .then(r => r.json()).then(data => { 
                 document.getElementById('namaAlumni').value = data || ''; 
